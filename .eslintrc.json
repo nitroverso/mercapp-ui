@@ -2,11 +2,11 @@
   "extends": ["next/core-web-vitals", "next/typescript"],
   "plugins": ["react"],
   "rules": {
-    /* "sort-keys": [
+    "sort-keys": [
       "error",
       "asc",
       { "caseSensitive": true, "natural": true, "minKeys": 2 }
-    ], */
+    ],
     "react/jsx-sort-props": [
       "error",
       {
