@@ -1,5 +1,6 @@
 // components
 import Grid from "@mui/material/Grid2";
+import Logo from "@/app/ui/atoms/Logo";
 import Image from "next/image";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -13,7 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         size={{ xs: 1, md: 2 }}
       >
         <Grid container alignItems="center" className="h-2/5" direction="row">
-          <Image alt="Mercapp logo" height={500} src="/logo.png" width={500} />
+          <Logo />
         </Grid>
         <Grid className="h-3/5">{children}</Grid>
       </Grid>
