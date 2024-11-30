@@ -4,13 +4,13 @@ import localFont from "next/font/local";
 /** ******* Google Fonts ******* */
 export const inter = Inter({ subsets: ["latin"] });
 export const lusitana = Lusitana({
-  weight: ["400", "700"],
   subsets: ["latin"],
+  weight: ["400", "700"],
 });
 export const roboto = Roboto({
-  weight: ["300", "400", "500", "700"],
-  subsets: ["latin"],
   display: "swap",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
 });
 /** ******* ******* ******* ******* */
 

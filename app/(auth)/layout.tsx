@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <Grid container className="h-screen" columns={{ xs: 1, md: 5 }}>
       {/* Auth page container */}
       {/* eslint-disable-next-line sort-keys */}
-      <Grid className="bg-white" size={{ xs: 1, md: 2 }}>
+      <Grid size={{ xs: 1, md: 2 }}>
         <Grid container className="px-10" flexGrow={1} justifyContent="center">
           <Logo />
         </Grid>

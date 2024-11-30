@@ -8,8 +8,8 @@ import "@/app/ui/styles/globals.css";
 import theme from "@/app/ui/styles/theme";
 
 export const metadata: Metadata = {
-  title: "Mercapp",
   description: "Simplify your shopping, elevate your life!",
+  title: "Mercapp",
 };
 
 export default function RootLayout({
