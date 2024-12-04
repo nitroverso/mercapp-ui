@@ -1,3 +1,5 @@
+// components
+import Link from "@/app/ui/atoms/Link";
 import { Box, Button, TextField, Typography } from "@mui/material";
 
 export default function Page() {
@@ -12,6 +14,9 @@ export default function Page() {
         variant="outlined"
       />
       <Button variant="contained">Login</Button>
+      <Link className="text-center" href="/signup">
+        Do not have an account? Sign up
+      </Link>
     </Box>
   );
 }
