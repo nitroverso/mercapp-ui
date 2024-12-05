@@ -13,7 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Grid container className="px-10" flexGrow={1} justifyContent="center">
           <Logo />
         </Grid>
-        <Grid className="px-10" flexGrow={1}>
+        <Grid className="px-16" flexGrow={1}>
           {children}
         </Grid>
       </Grid>
