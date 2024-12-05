@@ -2,57 +2,61 @@
 import Button, { ButtonSizes } from "@/app/ui/atoms/Button";
 import Link from "@/app/ui/atoms/Link";
 import { Box, TextField, Typography } from "@mui/material";
+// i18n
+import { useTranslations } from "next-intl";
 
 export default function Page() {
+  const t = useTranslations("auth");
+
   return (
     <Box className="flex flex-col gap-4">
-      <Typography variant="h4">Sign Up</Typography>
+      <Typography variant="h4">{t("signUp")}</Typography>
       <Box className="flex flex-col items-center gap-4">
         <TextField
           fullWidth
           id="name-input"
-          label="Name"
+          label={t("name")}
           size="small"
           variant="outlined"
         />
         <TextField
           fullWidth
           id="lastName-input"
-          label="Last name"
+          label={t("lastName")}
           size="small"
           variant="outlined"
         />
         <TextField
           fullWidth
           id="username-input"
-          label="Username"
+          label={t("username")}
           size="small"
           variant="outlined"
         />
         <TextField
           fullWidth
           id="email-input"
-          label="Email"
+          label={t("email")}
           size="small"
           variant="outlined"
         />
         <TextField
           fullWidth
           id="password-input"
-          label="Password"
+          label={t("password")}
           size="small"
           variant="outlined"
         />
         <TextField
           fullWidth
           id="confirmPassword-input"
-          label="Confirm password"
+          label={t("confirmPassword")}
           size="small"
           variant="outlined"
         />
-        <Button size={ButtonSizes.LARGE}>Register</Button>
+        <Button size={ButtonSizes.LARGE}>{t("register")}</Button>
         <Link className="text-center" href="/signin">
-          Already have an account? Sign in
+          {t("haveAccount")}
         </Link>
       </Box>
     </Box>

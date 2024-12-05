@@ -1,0 +1,16 @@
+{
+  "auth": {
+    "signIn": "Sign In",
+    "email": "Email",
+    "password": "Password",
+    "login": "auth",
+    "notAccount": "Do not have an account? Sign up",
+    "signUp": "Sign Up",
+    "name": "Name",
+    "lastName": "Last name",
+    "username": "Username",
+    "confirmPassword": "Confirm password",
+    "register": "Register",
+    "haveAccount": "Already have an account? Sign in"
+  }
+}

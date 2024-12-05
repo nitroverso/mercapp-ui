@@ -1,7 +1,7 @@
+import Image from "next/image";
 // components
 import Grid from "@mui/material/Grid2";
 import Logo from "@/app/ui/atoms/Logo";
-import Image from "next/image";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

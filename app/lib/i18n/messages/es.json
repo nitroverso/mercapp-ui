@@ -1,0 +1,16 @@
+{
+  "auth": {
+    "signIn": "Inicio de sesión",
+    "email": "Correo",
+    "password": "Contraseña",
+    "login": "Iniciar sesión",
+    "notAccount": "¿No tienes una cuenta? Regístrate",
+    "signUp": "Registro",
+    "name": "Nombre",
+    "lastName": "Apellido",
+    "username": "Usuario",
+    "confirmPassword": "Confirmar contraseña",
+    "register": "Regístrate",
+    "haveAccount": "¿Ya tienes una cuenta? Inicia sesión"
+  }
+}
