@@ -5,12 +5,17 @@ import Logo from "@/app/ui/atoms/Logo";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    // eslint-disable-next-line sort-keys
-    <Grid container className="h-screen" columns={{ xs: 1, md: 5, lg: 7 }}>
+    <Grid
+      container
+      className="h-screen"
+      // eslint-disable-next-line sort-keys
+      columns={{ xs: 1, md: 5, lg: 7 }}
+      component="main"
+    >
       {/* Auth page container */}
       {/* eslint-disable-next-line sort-keys */}
-      <Grid size={{ xs: 1, md: 2 }}>
-        <Grid container className="px-10" flexGrow={1} justifyContent="center">
+      <Grid component="section" size={{ xs: 1, md: 2 }}>
+        <Grid className="px-10" justifyContent="center">
           <Logo />
         </Grid>
         <Grid className="px-16" flexGrow={1}>
@@ -20,6 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Shopping cart placeholder */}
       <Grid
         className="relative bg-gradient-to-r from-orange-400 to-orange-500"
+        component="section"
         // eslint-disable-next-line sort-keys
         size={{ md: 3, lg: 5 }}
       >

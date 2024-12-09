@@ -25,36 +25,38 @@ export default function RegisterForm() {
   return (
     <>
       <Form<LoginFormData> onSubmit={handleFormSubmit}>
-        <Box className="flex flex-col items-center gap-4">
+        <Box className="flex flex-col items-center gap-4 h-[400px] overflow-y-auto mb-4 pt-4">
           <Input
             isRequired
-            name="name"
             label={t("name")}
+            name="name"
             size={InputSizes.SMALL}
           />
           <Input
             isRequired
-            name="lasName"
             label={t("lastName")}
+            name="lasName"
             size={InputSizes.SMALL}
           />
           <Input
             isRequired
-            name="username"
             label={t("username")}
+            name="username"
             size={InputSizes.SMALL}
           />
-          <Email name="email" label={t("email")} size={InputSizes.SMALL} />
+          <Email label={t("email")} name="email" size={InputSizes.SMALL} />
           <Password
-            name="password"
             label={t("password")}
+            name="password"
             size={InputSizes.SMALL}
           />
           <Password
-            name="confirmPassword"
             label={t("confirmPassword")}
+            name="confirmPassword"
             size={InputSizes.SMALL}
           />
+        </Box>
+        <Box className="text-center">
           <Button size={ButtonSizes.LARGE} type={ButtonTypes.SUBMIT}>
             {t("register")}
           </Button>

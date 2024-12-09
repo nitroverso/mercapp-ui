@@ -25,8 +25,8 @@ export default function LoginForm() {
     <>
       <Form<LoginFormData> onSubmit={handleFormSubmit}>
         <Box className="flex flex-col items-center gap-4">
-          <Email name="email" label={t("email")} />
-          <Password name="password" label={t("password")} />
+          <Email label={t("email")} name="email" />
+          <Password label={t("password")} name="password" />
           <Button size={ButtonSizes.LARGE} type={ButtonTypes.SUBMIT}>
             {t("login")}
           </Button>
