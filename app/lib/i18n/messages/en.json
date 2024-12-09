@@ -12,5 +12,10 @@
     "confirmPassword": "Confirm password",
     "register": "Register",
     "haveAccount": "Already have an account? Sign in"
+  },
+  "form": {
+    "required": "This field is required",
+    "emailValid": "Invalid email address",
+    "passwordLength": "Password must be at least 6 characters long"
   }
 }

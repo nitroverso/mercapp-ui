@@ -12,5 +12,10 @@
     "confirmPassword": "Confirmar contraseña",
     "register": "Regístrate",
     "haveAccount": "¿Ya tienes una cuenta? Inicia sesión"
+  },
+  "form": {
+    "required": "Este campo es requerido",
+    "emailValid": "Correo inválido",
+    "passwordLength": "La contraseña debe ser al menos de 6 letras"
   }
 }

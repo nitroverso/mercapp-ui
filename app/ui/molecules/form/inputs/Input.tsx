@@ -5,6 +5,8 @@ import {
   RegisterOptions,
 } from "react-hook-form";
 import { TextField } from "@mui/material";
+// i18n
+import { useTranslations } from "next-intl";
 
 export enum InputSizes {
   MEDIUM = "medium",
@@ -13,6 +15,7 @@ export enum InputSizes {
 
 interface InputProps {
   control?: Control;
+  isRequired?: boolean;
   label: string;
   name: string;
   rules?: RegisterOptions;
@@ -22,29 +25,37 @@ interface InputProps {
 
 const Input: React.FC<InputProps> = ({
   control,
+  isRequired,
   label,
   name,
-  rules,
+  rules = {},
   size,
   type = "text",
-}) => (
-  <Controller
-    control={control}
-    defaultValue=""
-    name={name}
-    render={({ field, fieldState: { error } }) => (
-      <TextField
-        {...field}
-        fullWidth
-        error={!!error}
-        helperText={(error as FieldError)?.message || ""}
-        label={label}
-        size={size ?? InputSizes.MEDIUM}
-        type={type}
-      />
-    )}
-    rules={rules}
-  />
-);
+}) => {
+  const t = useTranslations("form");
+
+  return (
+    <Controller
+      control={control}
+      defaultValue=""
+      name={name}
+      render={({ field, fieldState: { error } }) => (
+        <TextField
+          {...field}
+          fullWidth
+          error={!!error}
+          helperText={(error as FieldError)?.message || ""}
+          label={label}
+          size={size ?? InputSizes.MEDIUM}
+          type={type}
+        />
+      )}
+      rules={{
+        required: isRequired ? t("required") : "",
+        ...rules,
+      }}
+    />
+  );
+};
 
 export default Input;

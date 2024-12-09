@@ -11,7 +11,7 @@ export default function Page() {
   return (
     <Box className="flex flex-col gap-4">
       <Typography variant="h4">{t("signUp")}</Typography>
-      <Box className="flex flex-col items-center gap-4">
+      <Box className="flex flex-col items-center gap-4 max-h-[450px] overflow-y-auto">
         <RegisterForm />
         <Link className="text-center" href="/signin">
           {t("haveAccount")}

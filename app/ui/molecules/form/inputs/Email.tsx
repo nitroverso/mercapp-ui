@@ -1,5 +1,7 @@
 import { Control } from "react-hook-form";
 import Input, { InputSizes } from "./Input";
+// i18n
+import { useTranslations } from "next-intl";
 
 interface EmailProps {
   control?: Control;
@@ -8,18 +10,22 @@ interface EmailProps {
   size?: InputSizes;
 }
 
-const Email: React.FC<EmailProps> = (props) => (
-  <Input
-    {...props}
-    rules={{
-      pattern: {
-        message: "Invalid email address",
-        value: /^\S+@\S+$/,
-      },
-      required: "Email is required",
-    }}
-    type="email"
-  />
-);
+const Email: React.FC<EmailProps> = (props) => {
+  const t = useTranslations("form");
+
+  return (
+    <Input
+      {...props}
+      rules={{
+        pattern: {
+          message: t("emailValid"),
+          value: /^\S+@\S+$/,
+        },
+        required: t("required"),
+      }}
+      type="email"
+    />
+  );
+};
 
 export default Email;

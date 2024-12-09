@@ -27,21 +27,21 @@ export default function RegisterForm() {
       <Form<LoginFormData> onSubmit={handleFormSubmit}>
         <Box className="flex flex-col items-center gap-4">
           <Input
+            isRequired
             name="name"
             label={t("name")}
-            rules={{ required: "Name is required" }}
             size={InputSizes.SMALL}
           />
           <Input
+            isRequired
             name="lasName"
             label={t("lastName")}
-            rules={{ required: "Last name is required" }}
             size={InputSizes.SMALL}
           />
           <Input
+            isRequired
             name="username"
             label={t("username")}
-            rules={{ required: "Username is required" }}
             size={InputSizes.SMALL}
           />
           <Email name="email" label={t("email")} size={InputSizes.SMALL} />
