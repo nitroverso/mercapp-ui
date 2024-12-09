@@ -1,10 +1,11 @@
 import { Control } from "react-hook-form";
-import Input from "./Input";
+import Input, { InputSizes } from "./Input";
 
 interface EmailProps {
-  name: string;
-  label: string;
   control?: Control;
+  label: string;
+  name: string;
+  size?: InputSizes;
 }
 
 const Email: React.FC<EmailProps> = (props) => (

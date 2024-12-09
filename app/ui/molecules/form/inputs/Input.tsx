@@ -6,20 +6,27 @@ import {
 } from "react-hook-form";
 import { TextField } from "@mui/material";
 
+export enum InputSizes {
+  MEDIUM = "medium",
+  SMALL = "small",
+}
+
 interface InputProps {
-  name: string;
-  label: string;
-  type?: string;
-  rules?: RegisterOptions;
   control?: Control;
+  label: string;
+  name: string;
+  rules?: RegisterOptions;
+  size?: InputSizes;
+  type?: string;
 }
 
 const Input: React.FC<InputProps> = ({
-  name,
-  label,
-  type = "text",
-  rules,
   control,
+  label,
+  name,
+  rules,
+  size,
+  type = "text",
 }) => (
   <Controller
     control={control}
@@ -32,6 +39,7 @@ const Input: React.FC<InputProps> = ({
         error={!!error}
         helperText={(error as FieldError)?.message || ""}
         label={label}
+        size={size ?? InputSizes.MEDIUM}
         type={type}
       />
     )}

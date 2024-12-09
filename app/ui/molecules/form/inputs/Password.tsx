@@ -1,10 +1,11 @@
 import { Control } from "react-hook-form";
-import Input from "./Input";
+import Input, { InputSizes } from "./Input";
 
 interface PasswordProps {
-  name: string;
-  label: string;
   control?: Control;
+  label: string;
+  name: string;
+  size?: InputSizes;
 }
 
 const Password: React.FC<PasswordProps> = (props) => (
