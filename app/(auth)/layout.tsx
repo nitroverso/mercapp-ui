@@ -15,8 +15,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Auth page container */}
       {/* eslint-disable-next-line sort-keys */}
       <Grid component="section" size={{ xs: 1, md: 2 }}>
-        <Grid className="px-10" justifyContent="center">
-          <Logo />
+        <Grid container className="px-10" justifyContent="center">
+          <Logo height={400} width={400} />
         </Grid>
         <Grid className="px-16" flexGrow={1}>
           {children}

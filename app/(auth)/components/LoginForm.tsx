@@ -1,5 +1,5 @@
 "use client";
-
+import { signIn } from "next-auth/react";
 // components
 import Button, { ButtonSizes, ButtonTypes } from "@/app/ui/atoms/Button";
 import Form from "@/app/ui/molecules/form/Form";
@@ -9,16 +9,16 @@ import { Box } from "@mui/material";
 // i18n
 import { useTranslations } from "next-intl";
 
-interface LoginFormData {
+type LoginFormData = {
   email: string;
   password: string;
-}
+};
 
 export default function LoginForm() {
   const t = useTranslations("auth");
 
   const handleFormSubmit = (data: LoginFormData) => {
-    console.log("Form Data:", data);
+    signIn("credentials", data);
   };
 
   return (

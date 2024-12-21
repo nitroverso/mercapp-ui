@@ -25,7 +25,7 @@ export default function RegisterForm() {
   return (
     <>
       <Form<LoginFormData> onSubmit={handleFormSubmit}>
-        <Box className="flex flex-col items-center gap-4 h-[400px] overflow-y-auto mb-4 pt-4">
+        <Box className="flex flex-col items-center gap-4 h-[350px] overflow-y-auto mb-4 pt-4">
           <Input
             isRequired
             label={t("name")}

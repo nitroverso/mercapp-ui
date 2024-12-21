@@ -20,7 +20,7 @@ const Form = <T extends FieldValues>({
 
   return (
     <FormProvider {...methods}>
-      <form noValidate onSubmit={handleSubmit} className="w-full">
+      <form noValidate className="w-full" onSubmit={handleSubmit}>
         {Children.map(children, (child) =>
           cloneElement(child as React.ReactElement, {
             control: methods.control,
