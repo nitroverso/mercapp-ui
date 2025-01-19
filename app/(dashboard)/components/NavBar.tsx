@@ -15,7 +15,7 @@ import { useTranslations } from "next-intl";
 import {
   EVENTS_ROUTE,
   NOTIFICATIONS_ROUTE,
-  PRODUCTS_ROUTE,
+  CUPBOARD_ROUTE,
   PROFILE_ROUTE,
   SETTINGS_ROUTE,
 } from "@/app/lib/definitions/routes";
@@ -43,7 +43,7 @@ export default function NavBar() {
     {
       icon: KitchenIcon,
       name: t("cupboard"),
-      redirectTo: PRODUCTS_ROUTE,
+      redirectTo: CUPBOARD_ROUTE,
     },
     {
       icon: NotificationsIcon,

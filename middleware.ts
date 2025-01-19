@@ -1,5 +1,5 @@
 import {
-  PRODUCTS_ROUTE,
+  EVENTS_ROUTE,
   PUBLIC_ROUTES,
   SIGNIN_ROUTE,
 } from "@/app/lib/definitions/routes";
@@ -15,7 +15,7 @@ export default middleware((req) => {
   }
 
   if (isAuthenticated && isPublicRoute) {
-    return Response.redirect(new URL(PRODUCTS_ROUTE, nextUrl));
+    return Response.redirect(new URL(EVENTS_ROUTE, nextUrl));
   }
 });
 
