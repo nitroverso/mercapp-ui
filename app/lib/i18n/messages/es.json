@@ -17,5 +17,12 @@
     "required": "Este campo es requerido",
     "emailValid": "Correo inválido",
     "passwordLength": "La contraseña debe ser al menos de 6 letras"
+  },
+  "navBar": {
+    "cupboard": "Alacena",
+    "home": "Inicio",
+    "notifications": "Notificaciones",
+    "profile": "Perfil",
+    "settings": "Configruación"
   }
 }

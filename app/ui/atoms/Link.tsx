@@ -5,7 +5,7 @@ import NextLink from "next/link";
 
 interface LinkProps {
   children: React.ReactNode;
-  className: string;
+  className?: string;
   href: string;
 }
 

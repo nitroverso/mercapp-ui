@@ -17,5 +17,12 @@
     "required": "This field is required",
     "emailValid": "Invalid email address",
     "passwordLength": "Password must be at least 6 characters long"
+  },
+  "navBar": {
+    "cupboard": "Cupboard",
+    "home": "Home",
+    "notifications": "Notifications",
+    "profile": "Profile",
+    "settings": "Settings"
   }
 }
