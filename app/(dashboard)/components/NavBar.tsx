@@ -1,4 +1,7 @@
-import { ElementType, Fragment } from "react";
+"use client";
+
+import { Fragment } from "react";
+import { usePathname } from "next/navigation";
 // components
 import Logo from "@/app/ui/atoms/Logo";
 import { Avatar, Box, Typography } from "@mui/material";
@@ -19,6 +22,7 @@ import {
   PROFILE_ROUTE,
   SETTINGS_ROUTE,
 } from "@/app/lib/definitions/routes";
+import clsx from "clsx";
 
 type MenuItem = {
   hideName?: boolean;
@@ -33,6 +37,7 @@ const MENU_ITEM_AVATAR_SIZE = MENU_ITEM_ICON_SIZE + 10;
 
 export default function NavBar() {
   const t = useTranslations("navBar");
+  const pathname = usePathname();
 
   const MENU_MAIN_ITEMS: MenuItem[] = [
     {
@@ -82,7 +87,8 @@ export default function NavBar() {
                 bgcolor: "primary.dark",
                 cursor: "pointer",
               },
-              bgcolor: "primary.main",
+              bgcolor:
+                pathname === redirectTo ? "primary.dark" : "primary.main",
               height: MENU_ITEM_AVATAR_SIZE,
               width: MENU_ITEM_AVATAR_SIZE,
             }}
@@ -90,7 +96,14 @@ export default function NavBar() {
             <Icon sx={{ fontSize: MENU_ITEM_ICON_SIZE }} />
           </Avatar>
         </Link>
-        {!hideName && <Typography variant="overline">{name}</Typography>}
+        {!hideName && (
+          <Typography
+            className={clsx({ underline: pathname === redirectTo })}
+            variant="overline"
+          >
+            {name}
+          </Typography>
+        )}
       </Fragment>
     );
   };
