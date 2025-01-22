@@ -5,6 +5,18 @@ import { createTheme } from "@mui/material/styles";
 import { roboto } from "@/app/ui/typography/fonts";
 
 const lightTheme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      // eslint-disable-next-line sort-keys
+      sm: 640,
+      // eslint-disable-next-line sort-keys
+      md: 768,
+      // eslint-disable-next-line sort-keys
+      lg: 1024,
+      xl: 1280,
+    },
+  },
   palette: {
     error: {
       main: "#d32f2f",
