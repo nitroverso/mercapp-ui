@@ -2,6 +2,7 @@
 
 import { Fragment } from "react";
 import { usePathname } from "next/navigation";
+import clsx from "clsx";
 // components
 import Logo from "@/app/ui/atoms/Logo";
 import { Avatar, Box, Typography } from "@mui/material";
@@ -22,7 +23,6 @@ import {
   PROFILE_ROUTE,
   SETTINGS_ROUTE,
 } from "@/app/lib/definitions/routes";
-import clsx from "clsx";
 
 type MenuItem = {
   hideName?: boolean;

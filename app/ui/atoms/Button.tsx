@@ -1,5 +1,9 @@
 // components
-import { Button as MuiButton } from "@mui/material";
+import {
+  IconButton,
+  IconButtonProps,
+  Button as MuiButton,
+} from "@mui/material";
 
 export enum ButtonSizes {
   LARGE = "large",
@@ -16,26 +20,50 @@ export enum ButtonVariants {
   SOLID = "contained",
 }
 
+export enum ButtonScope {
+  DEFAULT = "default",
+  ICON = "icon",
+}
+
 interface ButtonProps {
   children: React.ReactNode;
+  iconButtonProps?: IconButtonProps;
+  scope?: ButtonScope;
   size?: ButtonSizes;
   type?: ButtonTypes;
   variant?: ButtonVariants;
 }
 
-export default function Button({ children, size, type, variant }: ButtonProps) {
-  return (
-    <MuiButton
-      size={size ?? ButtonSizes.MEDIUM}
-      sx={{
-        borderRadius: 5,
-        px: 5,
-        width: "fit-content",
-      }}
-      type={type ?? ButtonTypes.BUTTON}
-      variant={variant ?? ButtonVariants.SOLID}
-    >
-      {children}
-    </MuiButton>
-  );
+export default function Button({
+  children,
+  iconButtonProps,
+  scope = ButtonScope.DEFAULT,
+  size,
+  type,
+  variant,
+}: ButtonProps) {
+  const renderIconButton = () => {
+    return <IconButton {...iconButtonProps}>{children}</IconButton>;
+  };
+
+  const renderDefaultButton = () => {
+    return (
+      <MuiButton
+        size={size ?? ButtonSizes.MEDIUM}
+        sx={{
+          borderRadius: 5,
+          px: 5,
+          width: "fit-content",
+        }}
+        type={type ?? ButtonTypes.BUTTON}
+        variant={variant ?? ButtonVariants.SOLID}
+      >
+        {children}
+      </MuiButton>
+    );
+  };
+
+  return scope === ButtonScope.DEFAULT
+    ? renderDefaultButton()
+    : renderIconButton();
 }

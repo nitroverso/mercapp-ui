@@ -13,6 +13,9 @@
     "register": "Regístrate",
     "haveAccount": "¿Ya tienes una cuenta? Inicia sesión"
   },
+  "dashboard": {
+    "search": "Buscar"
+  },
   "form": {
     "required": "Este campo es requerido",
     "emailValid": "Correo inválido",

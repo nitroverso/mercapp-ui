@@ -13,6 +13,9 @@
     "register": "Register",
     "haveAccount": "Already have an account? Sign in"
   },
+  "dashboard": {
+    "search": "Search"
+  },
   "form": {
     "required": "This field is required",
     "emailValid": "Invalid email address",

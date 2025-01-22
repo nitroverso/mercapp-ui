@@ -1,6 +1,7 @@
 // components
 import Grid from "@mui/material/Grid2";
 import NavBar from "@/app/(dashboard)/components/NavBar";
+import TopBar from "@/app/(dashboard)/components/TopBar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -29,6 +30,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         // eslint-disable-next-line sort-keys
         size={{ xs: 1, md: 4, lg: 6 }}
       >
+        <TopBar />
         {children}
       </Grid>
     </Grid>
