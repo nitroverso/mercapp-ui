@@ -1,5 +1,6 @@
 // components
 import {
+  Box,
   IconButton,
   IconButtonProps,
   Button as MuiButton,
@@ -27,6 +28,7 @@ export enum ButtonScope {
 
 interface ButtonProps {
   children: React.ReactNode;
+  className?: string;
   iconButtonProps?: IconButtonProps;
   scope?: ButtonScope;
   size?: ButtonSizes;
@@ -36,6 +38,7 @@ interface ButtonProps {
 
 export default function Button({
   children,
+  className,
   iconButtonProps,
   scope = ButtonScope.DEFAULT,
   size,
@@ -63,7 +66,11 @@ export default function Button({
     );
   };
 
-  return scope === ButtonScope.DEFAULT
-    ? renderDefaultButton()
-    : renderIconButton();
+  return (
+    <Box className={className}>
+      {scope === ButtonScope.DEFAULT
+        ? renderDefaultButton()
+        : renderIconButton()}
+    </Box>
+  );
 }

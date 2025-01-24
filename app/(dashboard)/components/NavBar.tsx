@@ -5,14 +5,30 @@ import { usePathname } from "next/navigation";
 import clsx from "clsx";
 // components
 import Logo from "@/app/ui/atoms/Logo";
-import { Avatar, Box, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Divider,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import Link from "@/app/ui/atoms/Link";
+import Button, { ButtonScope } from "@/app/ui/atoms/Button";
+// hooks
+import { useResolutions } from "@/app/lib/hooks/useResolutions";
+import { useStore } from "@/app/lib/hooks/useStore";
 // icons
 import HomeIcon from "@mui/icons-material/Home";
 import KitchenIcon from "@mui/icons-material/Kitchen";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 // i18n
 import { useTranslations } from "next-intl";
 // routes
@@ -24,7 +40,7 @@ import {
   SETTINGS_ROUTE,
 } from "@/app/lib/definitions/routes";
 
-type MenuItem = {
+export type MenuItem = {
   hideName?: boolean;
   icon: typeof HomeIcon;
   name: string;
@@ -36,8 +52,10 @@ const MENU_ITEM_ICON_SIZE = 50;
 const MENU_ITEM_AVATAR_SIZE = MENU_ITEM_ICON_SIZE + 10;
 
 export default function NavBar() {
+  const { openMenu, handleToggleMenu } = useStore();
   const t = useTranslations("navBar");
   const pathname = usePathname();
+  const { isMobile } = useResolutions();
 
   const MENU_MAIN_ITEMS: MenuItem[] = [
     {
@@ -72,7 +90,48 @@ export default function NavBar() {
     },
   ];
 
-  const renderMenuItem = ({
+  const renderMobileMenuItem = ({ name, icon: Icon, redirectTo }: MenuItem) => {
+    return (
+      <ListItem
+        key={name}
+        className={clsx(
+          pathname === redirectTo &&
+            "bg-gradient-to-b from-orange-400 to-orange-500"
+        )}
+        sx={{ display: "block" }}
+      >
+        <Link href={redirectTo}>
+          <ListItemButton>
+            <ListItemIcon>
+              <Icon />
+            </ListItemIcon>
+            <ListItemText secondary={name} />
+          </ListItemButton>
+        </Link>
+      </ListItem>
+    );
+  };
+
+  const renderMobileMenu = () => {
+    return (
+      <Drawer open={openMenu} variant="temporary" onClose={handleToggleMenu}>
+        <Button
+          iconButtonProps={{ onClick: handleToggleMenu }}
+          scope={ButtonScope.ICON}
+        >
+          <MenuOpenIcon sx={{ fontSize: 40 }} />
+        </Button>
+        <Divider />
+        <List>
+          {MENU_MAIN_ITEMS.map(renderMobileMenuItem)}
+          <Divider className="" />
+          {MENU_BOTTOM_ITEMS.map(renderMobileMenuItem)}
+        </List>
+      </Drawer>
+    );
+  };
+
+  const renderDesktopMenuItem = ({
     hideName,
     name,
     icon: Icon,
@@ -108,15 +167,19 @@ export default function NavBar() {
     );
   };
 
-  return (
-    <Box className="p-5 rounded-2xl flex flex-col justify-between bg-gradient-to-b from-orange-400 to-orange-500">
-      <Logo single height={100} width={100} />
-      <Box className="flex flex-col items-center gap-3">
-        {MENU_MAIN_ITEMS.map(renderMenuItem)}
+  const renderDesktopMenu = () => {
+    return (
+      <Box className="p-4 rounded-lg flex flex-col justify-between bg-gradient-to-b from-orange-400 to-orange-500">
+        <Logo single height={100} width={100} />
+        <Box className="flex flex-col items-center gap-3">
+          {MENU_MAIN_ITEMS.map(renderDesktopMenuItem)}
+        </Box>
+        <Box className="flex flex-col items-center gap-2">
+          {MENU_BOTTOM_ITEMS.map(renderDesktopMenuItem)}
+        </Box>
       </Box>
-      <Box className="flex flex-col items-center gap-2">
-        {MENU_BOTTOM_ITEMS.map(renderMenuItem)}
-      </Box>
-    </Box>
-  );
+    );
+  };
+
+  return isMobile ? renderMobileMenu() : renderDesktopMenu();
 }
