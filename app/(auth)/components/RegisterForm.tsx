@@ -19,7 +19,7 @@ export default function RegisterForm() {
   const t = useTranslations("auth");
 
   const handleFormSubmit = (data: LoginFormData) => {
-    console.log("Form Data:", data);
+    console.log("Form Data:", data); // TODO: Implement signUp
   };
 
   return (

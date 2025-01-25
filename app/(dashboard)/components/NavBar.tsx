@@ -1,5 +1,5 @@
 "use client";
-
+import { signOut } from "next-auth/react";
 import { Fragment } from "react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
@@ -17,7 +17,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import Link from "@/app/ui/atoms/Link";
+import Actionable from "@/app/ui/atoms/Actionable";
 import Button, { ButtonScope } from "@/app/ui/atoms/Button";
 // hooks
 import { useResolutions } from "@/app/lib/hooks/useResolutions";
@@ -29,6 +29,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
+import LogoutIcon from "@mui/icons-material/Logout";
 // i18n
 import { useTranslations } from "next-intl";
 // routes
@@ -44,7 +45,8 @@ export type MenuItem = {
   hideName?: boolean;
   icon: typeof HomeIcon;
   name: string;
-  redirectTo: string;
+  redirectTo?: string;
+  onClick?: () => void;
 };
 
 // Sizes in px
@@ -88,9 +90,20 @@ export default function NavBar() {
       name: t("settings"),
       redirectTo: SETTINGS_ROUTE,
     },
+    {
+      hideName: true,
+      icon: LogoutIcon,
+      name: t("logout"),
+      onClick: () => signOut(),
+    },
   ];
 
-  const renderMobileMenuItem = ({ name, icon: Icon, redirectTo }: MenuItem) => {
+  const renderMobileMenuItem = ({
+    name,
+    icon: Icon,
+    redirectTo,
+    onClick,
+  }: MenuItem) => {
     return (
       <ListItem
         key={name}
@@ -100,14 +113,14 @@ export default function NavBar() {
         )}
         sx={{ display: "block" }}
       >
-        <Link href={redirectTo}>
+        <Actionable href={redirectTo} onClick={onClick}>
           <ListItemButton>
             <ListItemIcon>
               <Icon />
             </ListItemIcon>
             <ListItemText secondary={name} />
           </ListItemButton>
-        </Link>
+        </Actionable>
       </ListItem>
     );
   };
@@ -136,10 +149,11 @@ export default function NavBar() {
     name,
     icon: Icon,
     redirectTo,
+    onClick,
   }: MenuItem) => {
     return (
       <Fragment key={name}>
-        <Link href={redirectTo}>
+        <Actionable href={redirectTo} onClick={onClick}>
           <Avatar
             sx={{
               "&:hover": {
@@ -154,7 +168,7 @@ export default function NavBar() {
           >
             <Icon sx={{ fontSize: MENU_ITEM_ICON_SIZE }} />
           </Avatar>
-        </Link>
+        </Actionable>
         {!hideName && (
           <Typography
             className={clsx({ underline: pathname === redirectTo })}
@@ -169,7 +183,7 @@ export default function NavBar() {
 
   const renderDesktopMenu = () => {
     return (
-      <Box className="p-4 rounded-lg flex flex-col justify-between bg-gradient-to-b from-orange-400 to-orange-500">
+      <Box className="p-4 rounded-lg flex flex-col items-center justify-between bg-gradient-to-b from-orange-400 to-orange-500">
         <Logo single height={100} width={100} />
         <Box className="flex flex-col items-center gap-3">
           {MENU_MAIN_ITEMS.map(renderDesktopMenuItem)}

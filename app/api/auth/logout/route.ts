@@ -1,16 +1,12 @@
-// types
-import { IUserLoginRequest, IUser } from "@/app/lib/definitions/user";
 // utils
 import { commonFetch } from "@/app/lib/utils/common-fetch";
 
-export async function POST(req: Request) {
+export async function POST() {
   try {
-    const body: IUserLoginRequest = await req.json();
-
-    const data = await commonFetch<IUser>({
+    const data = await commonFetch({
       external: true,
-      options: { body: JSON.stringify(body), method: "POST" },
-      url: "/auth/login",
+      options: { method: "POST" },
+      url: "/auth/logout",
     });
 
     return new Response(JSON.stringify(data), { status: 200 });

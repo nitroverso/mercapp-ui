@@ -1,6 +1,7 @@
 // components
 import {
   Box,
+  ButtonProps as MuiButtonProps,
   IconButton,
   IconButtonProps,
   Button as MuiButton,
@@ -27,6 +28,7 @@ export enum ButtonScope {
 }
 
 interface ButtonProps {
+  buttonProps?: MuiButtonProps;
   children: React.ReactNode;
   className?: string;
   iconButtonProps?: IconButtonProps;
@@ -37,6 +39,7 @@ interface ButtonProps {
 }
 
 export default function Button({
+  buttonProps,
   children,
   className,
   iconButtonProps,
@@ -52,6 +55,7 @@ export default function Button({
   const renderDefaultButton = () => {
     return (
       <MuiButton
+        {...buttonProps}
         size={size ?? ButtonSizes.MEDIUM}
         sx={{
           borderRadius: 5,

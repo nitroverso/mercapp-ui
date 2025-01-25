@@ -1,9 +1,18 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 // services
-import { loginUserWithCredentials } from "@/app/lib/services/serviceAuth";
+import {
+  loginUserWithCredentials,
+  logoutUser,
+} from "@/app/lib/services/serviceAuth";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  events: {
+    signOut: async (message) => {
+      const data = await logoutUser();
+      console.log("Usuario cerró sesión:", message, data); // TODO: Use a events handler to show a toast message or similar
+    },
+  },
   pages: {
     signIn: "/signin",
   },
@@ -24,10 +33,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           // const pwHash = saltAndHashPassword(credentials.password);
 
           // logic to verify if the user exists
-          user = await loginUserWithCredentials(
-            credentials.email as string,
-            credentials.password as string
-          );
+          user = await loginUserWithCredentials({
+            email: credentials.email as string,
+            password: credentials.password as string,
+          });
 
           if (!user) {
             // No user found, so this is their first attempt to login
