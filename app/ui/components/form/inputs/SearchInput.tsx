@@ -1,6 +1,6 @@
 // components
 import Button, { ButtonScope, ButtonTypes } from "@/app/ui/components/Button";
-import Input, { InputSizes } from "@/app/ui/components/form/inputs/Input";
+import Input, { InputSizes } from "@/app/ui/components/form/inputs/BaseInput";
 import { Divider, Paper } from "@mui/material";
 // i18n
 import { useTranslations } from "next-intl";

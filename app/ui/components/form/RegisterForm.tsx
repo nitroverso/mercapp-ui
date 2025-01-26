@@ -3,12 +3,13 @@
 // components
 import Button, { ButtonSizes, ButtonTypes } from "@/app/ui/components/Button";
 import Form from "@/app/ui/components/form/Form";
-import Email from "@/app/ui/components/form/inputs/Email";
-import Input, { InputSizes } from "@/app/ui/components/form/inputs/Input";
-import Password from "@/app/ui/components/form/inputs/Password";
+import Email from "@/app/ui/components/form/inputs/EmailInput";
+import TextInput from "@/app/ui/components/form/inputs/TextInput";
+import Password from "@/app/ui/components/form/inputs/PasswordInput";
 import { Box } from "@mui/material";
 // i18n
 import { useTranslations } from "next-intl";
+import { InputSizes } from "@/app/ui/components/form/inputs/BaseInput";
 
 interface LoginFormData {
   email: string;
@@ -26,19 +27,19 @@ export default function RegisterForm() {
     <>
       <Form<LoginFormData> onSubmit={handleFormSubmit}>
         <Box className="flex flex-col items-center gap-4 h-[350px] overflow-y-auto mb-4 pt-4">
-          <Input
+          <TextInput
             isRequired
             label={t("name")}
             name="name"
             size={InputSizes.SMALL}
           />
-          <Input
+          <TextInput
             isRequired
             label={t("lastName")}
             name="lasName"
             size={InputSizes.SMALL}
           />
-          <Input
+          <TextInput
             isRequired
             label={t("username")}
             name="username"

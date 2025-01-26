@@ -2,7 +2,7 @@
 
 // components
 import { AppBar, Box, Toolbar, Typography } from "@mui/material";
-import Search from "@/app/ui/components/form/inputs/Search";
+import Search from "@/app/ui/components/form/inputs/SearchInput";
 import Button, { ButtonScope, ButtonSizes } from "@/app/ui/components/Button";
 import Form from "@/app/ui/components/form/Form";
 // hooks

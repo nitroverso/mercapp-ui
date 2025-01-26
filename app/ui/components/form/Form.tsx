@@ -7,12 +7,9 @@ import {
   useForm,
   DefaultValues,
 } from "react-hook-form";
-// components
-import { Box } from "@mui/material";
 
 interface FormProps<T extends FieldValues> {
   children: React.ReactNode;
-  className?: string;
   defaultValues?: DefaultValues<T>;
   onSubmit: SubmitHandler<T>;
 }
@@ -30,7 +27,6 @@ export function useFormContext() {
 
 const Form = <T extends FieldValues>({
   children,
-  className,
   defaultValues,
   onSubmit,
 }: FormProps<T>) => {
@@ -41,7 +37,7 @@ const Form = <T extends FieldValues>({
     <FormProvider {...methods}>
       <FormContext.Provider value={methods}>
         <form noValidate className="w-full" onSubmit={handleSubmit}>
-          <Box className={className}>{children}</Box>
+          {children}
         </form>
       </FormContext.Provider>
     </FormProvider>

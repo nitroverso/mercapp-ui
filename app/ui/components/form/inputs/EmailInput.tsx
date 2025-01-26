@@ -1,5 +1,5 @@
 // components
-import Input, { InputSizes } from "./Input";
+import Input, { InputSizes } from "./BaseInput";
 // hooks
 import { useFormContext } from "@/app/ui/components/form/Form";
 // i18n
