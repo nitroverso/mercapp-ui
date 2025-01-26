@@ -8,7 +8,7 @@
     "signUp": "Registro",
     "name": "Nombre",
     "lastName": "Apellido",
-    "username": "Usuario",
+    "birthdate": "Fecha de nacimiento",
     "confirmPassword": "Confirmar contraseña",
     "register": "Regístrate",
     "haveAccount": "¿Ya tienes una cuenta? Inicia sesión"

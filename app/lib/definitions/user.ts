@@ -1,20 +1,23 @@
-export interface IUser {
+export type IUser = {
   email: string;
   id: string;
   lastName: string;
   name: string;
   password: string;
   username: string;
-}
+};
 
-/**  */
+/** Requests */
 
-export interface IUserLoginRequest {
+export type IUserLoginRequest = {
   email: string;
   password: string;
-}
+};
 
-export interface IUserLoginResponse {
+export type IUserRegisterRequest = {
   email: string;
   password: string;
-}
+  firstName: string;
+  lastName: string;
+  birthday: string;
+};

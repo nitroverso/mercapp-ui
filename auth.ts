@@ -1,10 +1,7 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 // services
-import {
-  loginUserWithCredentials,
-  logoutUser,
-} from "@/app/lib/services/serviceAuth";
+import { loginUser, logoutUser } from "@/app/lib/services/serviceAuth";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   events: {
@@ -33,7 +30,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           // const pwHash = saltAndHashPassword(credentials.password);
 
           // logic to verify if the user exists
-          user = await loginUserWithCredentials({
+          user = await loginUser({
             email: credentials.email as string,
             password: credentials.password as string,
           });

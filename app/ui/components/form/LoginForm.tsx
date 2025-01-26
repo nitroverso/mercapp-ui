@@ -8,22 +8,19 @@ import Email from "@/app/ui/components/form/inputs/EmailInput";
 import Password from "@/app/ui/components/form/inputs/PasswordInput";
 // i18n
 import { useTranslations } from "next-intl";
-
-type LoginFormData = {
-  email: string;
-  password: string;
-};
+// types
+import { IUserLoginRequest } from "@/app/lib/definitions/user";
 
 export default function LoginForm() {
   const t = useTranslations("auth");
 
-  const onSubmit = (data: LoginFormData) => {
+  const onSubmit = (data: IUserLoginRequest) => {
     signIn("credentials", data);
   };
 
   return (
     <>
-      <Form<LoginFormData> onSubmit={onSubmit}>
+      <Form<IUserLoginRequest> onSubmit={onSubmit}>
         <Box className="flex flex-col items-center gap-4">
           <Email label={t("email")} name="email" />
           <Password label={t("password")} name="password" />

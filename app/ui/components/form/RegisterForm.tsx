@@ -10,50 +10,44 @@ import { Box } from "@mui/material";
 // i18n
 import { useTranslations } from "next-intl";
 import { InputSizes } from "@/app/ui/components/form/inputs/BaseInput";
-
-interface LoginFormData {
-  email: string;
-  password: string;
-}
+// services
+import { registerUser } from "@/app/lib/services/serviceAuth";
+// types
+import { IUserRegisterRequest } from "@/app/lib/definitions/user";
 
 export default function RegisterForm() {
   const t = useTranslations("auth");
 
-  const handleFormSubmit = (data: LoginFormData) => {
-    console.log("Form Data:", data); // TODO: Implement signUp
+  const handleFormSubmit = async (data: IUserRegisterRequest) => {
+    await registerUser(data);
   };
 
   return (
     <>
-      <Form<LoginFormData> onSubmit={handleFormSubmit}>
+      <Form<IUserRegisterRequest> onSubmit={handleFormSubmit}>
         <Box className="flex flex-col items-center gap-4 h-[350px] overflow-y-auto mb-4 pt-4">
           <TextInput
             isRequired
             label={t("name")}
-            name="name"
+            name="firstName"
             size={InputSizes.SMALL}
           />
           <TextInput
             isRequired
             label={t("lastName")}
-            name="lasName"
+            name="lastName"
             size={InputSizes.SMALL}
           />
-          <TextInput
+          <TextInput // TODO: IMPLEMENT DATE PICKER
             isRequired
-            label={t("username")}
-            name="username"
+            label={t("birthdate")}
+            name="birthday"
             size={InputSizes.SMALL}
           />
           <Email label={t("email")} name="email" size={InputSizes.SMALL} />
           <Password
             label={t("password")}
             name="password"
-            size={InputSizes.SMALL}
-          />
-          <Password
-            label={t("confirmPassword")}
-            name="confirmPassword"
             size={InputSizes.SMALL}
           />
         </Box>

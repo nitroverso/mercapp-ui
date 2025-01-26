@@ -8,7 +8,7 @@
     "signUp": "Sign Up",
     "name": "Name",
     "lastName": "Last name",
-    "username": "Username",
+    "birthdate": "Birthdate",
     "confirmPassword": "Confirm password",
     "register": "Register",
     "haveAccount": "Already have an account? Sign in"
