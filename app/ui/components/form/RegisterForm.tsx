@@ -7,6 +7,9 @@ import Email from "@/app/ui/components/form/inputs/EmailInput";
 import TextInput from "@/app/ui/components/form/inputs/TextInput";
 import Password from "@/app/ui/components/form/inputs/PasswordInput";
 import { Box } from "@mui/material";
+import BackdropStatus from "@/app/ui/components/BackdropStatus";
+// hooks
+import { useStore } from "@/app/lib/hooks/useStore";
 // i18n
 import { useTranslations } from "next-intl";
 import { InputSizes } from "@/app/ui/components/form/inputs/BaseInput";
@@ -17,13 +20,17 @@ import { IUserRegisterRequest } from "@/app/lib/definitions/user";
 
 export default function RegisterForm() {
   const t = useTranslations("auth");
+  const { authLoading, handleAuthLoading } = useStore();
 
   const handleFormSubmit = async (data: IUserRegisterRequest) => {
+    handleAuthLoading(true);
     await registerUser(data);
+    handleAuthLoading(false);
   };
 
   return (
     <>
+      <BackdropStatus open={authLoading} status={t("signingIn")} />
       <Form<IUserRegisterRequest> onSubmit={handleFormSubmit}>
         <Box className="flex flex-col items-center gap-4 h-[350px] overflow-y-auto mb-4 pt-4">
           <TextInput

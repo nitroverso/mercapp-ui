@@ -11,7 +11,9 @@
     "birthdate": "Fecha de nacimiento",
     "confirmPassword": "Confirmar contraseña",
     "register": "Regístrate",
-    "haveAccount": "¿Ya tienes una cuenta? Inicia sesión"
+    "haveAccount": "¿Ya tienes una cuenta? Inicia sesión",
+    "signingIn": "Iniciando sesión ...",
+    "registering": "Registrando usuario ..."
   },
   "dashboard": {
     "search": "Buscar"
@@ -27,6 +29,7 @@
     "notifications": "Notificaciones",
     "profile": "Perfil",
     "settings": "Configruación",
-    "logout": "Salir"
+    "logout": "Salir",
+    "signingOut": "Cerrando sesión ..."
   }
 }

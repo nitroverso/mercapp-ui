@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import Actionable from "@/app/ui/components/Actionable";
 import Button, { ButtonScope } from "@/app/ui/components/Button";
+import BackdropStatus from "@/app/ui/components/BackdropStatus";
 // hooks
 import { useResolutions } from "@/app/lib/hooks/useResolutions";
 import { useStore } from "@/app/lib/hooks/useStore";
@@ -54,7 +55,8 @@ const MENU_ITEM_ICON_SIZE = 50;
 const MENU_ITEM_AVATAR_SIZE = MENU_ITEM_ICON_SIZE + 10;
 
 export default function NavBar() {
-  const { openMenu, handleToggleMenu } = useStore();
+  const { openMenu, handleToggleMenu, authLoading, handleAuthLoading } =
+    useStore();
   const t = useTranslations("navBar");
   const pathname = usePathname();
   const { isMobile } = useResolutions();
@@ -94,7 +96,11 @@ export default function NavBar() {
       hideName: true,
       icon: LogoutIcon,
       name: t("logout"),
-      onClick: () => signOut(),
+      onClick: async () => {
+        handleAuthLoading(true);
+        await signOut();
+        handleAuthLoading(false);
+      },
     },
   ];
 
@@ -195,5 +201,10 @@ export default function NavBar() {
     );
   };
 
-  return isMobile ? renderMobileMenu() : renderDesktopMenu();
+  return (
+    <>
+      <BackdropStatus open={authLoading} status={t("signingOut")} />
+      {isMobile ? renderMobileMenu() : renderDesktopMenu()}
+    </>
+  );
 }

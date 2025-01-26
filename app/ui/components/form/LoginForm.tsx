@@ -6,6 +6,9 @@ import { Box } from "@mui/material";
 import Form from "@/app/ui/components/form/Form";
 import Email from "@/app/ui/components/form/inputs/EmailInput";
 import Password from "@/app/ui/components/form/inputs/PasswordInput";
+import BackdropStatus from "@/app/ui/components/BackdropStatus";
+// hooks
+import { useStore } from "@/app/lib/hooks/useStore";
 // i18n
 import { useTranslations } from "next-intl";
 // types
@@ -13,13 +16,17 @@ import { IUserLoginRequest } from "@/app/lib/definitions/user";
 
 export default function LoginForm() {
   const t = useTranslations("auth");
+  const { authLoading, handleAuthLoading } = useStore();
 
-  const onSubmit = (data: IUserLoginRequest) => {
-    signIn("credentials", data);
+  const onSubmit = async (data: IUserLoginRequest) => {
+    handleAuthLoading(true);
+    await signIn("credentials", data);
+    handleAuthLoading(false);
   };
 
   return (
     <>
+      <BackdropStatus open={authLoading} status={t("signingIn")} />
       <Form<IUserLoginRequest> onSubmit={onSubmit}>
         <Box className="flex flex-col items-center gap-4">
           <Email label={t("email")} name="email" />

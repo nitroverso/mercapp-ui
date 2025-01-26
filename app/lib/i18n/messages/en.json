@@ -11,7 +11,9 @@
     "birthdate": "Birthdate",
     "confirmPassword": "Confirm password",
     "register": "Register",
-    "haveAccount": "Already have an account? Sign in"
+    "haveAccount": "Already have an account? Sign in",
+    "signingIn": "Signing user in ...",
+    "registering": "Registering user ..."
   },
   "dashboard": {
     "search": "Search"
@@ -27,6 +29,7 @@
     "notifications": "Notifications",
     "profile": "Profile",
     "settings": "Settings",
-    "logout": "Logout"
+    "logout": "Logout",
+    "signingOut": "Signing user out ..."
   }
 }
