@@ -1,10 +1,10 @@
 import { create } from "zustand";
-import { createNavBarSlice, NavBarSlice } from "@/app/lib/store/NavBarSlice";
+import { createUISlice, UISlice } from "@/app/lib/store/UISlice";
 import { AuthSlice, createAuthSlice } from "@/app/lib/store/AuthSlice";
 
-type Store = NavBarSlice & AuthSlice;
+type Store = UISlice & AuthSlice;
 
 export const useStore = create<Store>()((...a) => ({
-  ...createNavBarSlice(...a),
+  ...createUISlice(...a),
   ...createAuthSlice(...a),
 }));

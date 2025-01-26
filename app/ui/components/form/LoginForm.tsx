@@ -16,17 +16,20 @@ import { IUserLoginRequest } from "@/app/lib/definitions/user";
 
 export default function LoginForm() {
   const t = useTranslations("auth");
-  const { authLoading, handleAuthLoading } = useStore();
+  const {
+    auth: { isLoading },
+    authActions: { toggleLoading },
+  } = useStore();
 
   const onSubmit = async (data: IUserLoginRequest) => {
-    handleAuthLoading(true);
+    toggleLoading(true);
     await signIn("credentials", data);
-    handleAuthLoading(false);
+    toggleLoading(false);
   };
 
   return (
     <>
-      <BackdropStatus open={authLoading} status={t("signingIn")} />
+      <BackdropStatus open={isLoading} status={t("signingIn")} />
       <Form<IUserLoginRequest> onSubmit={onSubmit}>
         <Box className="flex flex-col items-center gap-4">
           <Email label={t("email")} name="email" />

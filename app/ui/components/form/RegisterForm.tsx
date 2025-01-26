@@ -20,17 +20,20 @@ import { IUserRegisterRequest } from "@/app/lib/definitions/user";
 
 export default function RegisterForm() {
   const t = useTranslations("auth");
-  const { authLoading, handleAuthLoading } = useStore();
+  const {
+    auth: { isLoading },
+    authActions: { toggleLoading },
+  } = useStore();
 
   const handleFormSubmit = async (data: IUserRegisterRequest) => {
-    handleAuthLoading(true);
+    toggleLoading(true);
     await registerUser(data);
-    handleAuthLoading(false);
+    toggleLoading(false);
   };
 
   return (
     <>
-      <BackdropStatus open={authLoading} status={t("signingIn")} />
+      <BackdropStatus open={isLoading} status={t("signingIn")} />
       <Form<IUserRegisterRequest> onSubmit={handleFormSubmit}>
         <Box className="flex flex-col items-center gap-4 h-[350px] overflow-y-auto mb-4 pt-4">
           <TextInput

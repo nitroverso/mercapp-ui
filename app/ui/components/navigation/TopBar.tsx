@@ -12,7 +12,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 export default function TopBar() {
-  const { handleToggleMenu } = useStore();
+  const {
+    uiActions: {
+      uiNavbarActions: { toggleNavbar },
+    },
+  } = useStore();
 
   return (
     <>
@@ -23,7 +27,7 @@ export default function TopBar() {
               className="md:hidden"
               iconButtonProps={{
                 color: "inherit",
-                onClick: handleToggleMenu,
+                onClick: toggleNavbar,
                 size: ButtonSizes.LARGE,
               }}
               scope={ButtonScope.ICON}

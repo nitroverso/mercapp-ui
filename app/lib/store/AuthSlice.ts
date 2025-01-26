@@ -1,13 +1,29 @@
 import { StateCreator } from "zustand";
 
+/** *******  Auth Slice contexts interface definition ******* */
+interface AuthContext {
+  isLoading: boolean;
+}
+/** ******* ******* ******* ******* ******* ******* ******* */
+
+/** *******  Auth Slice actions interface definition ******* */
+interface AuthActions {
+  toggleLoading: (isLoading: boolean) => void;
+}
+/** ******* ******* ******* ******* ******* ******* ******* */
 export interface AuthSlice {
-  authLoading: boolean;
-  handleAuthLoading: (isLoading: boolean) => void;
+  auth: AuthContext;
+  authActions: AuthActions;
 }
 
 export const createAuthSlice: StateCreator<AuthSlice, [], [], AuthSlice> = (
   set
 ) => ({
-  authLoading: false,
-  handleAuthLoading: (isLoading) => set(() => ({ authLoading: isLoading })),
+  auth: { isLoading: false },
+  authActions: {
+    toggleLoading: (isLoading: boolean) =>
+      set((state) => ({
+        auth: { ...state.auth, isLoading },
+      })),
+  },
 });

@@ -55,8 +55,14 @@ const MENU_ITEM_ICON_SIZE = 50;
 const MENU_ITEM_AVATAR_SIZE = MENU_ITEM_ICON_SIZE + 10;
 
 export default function NavBar() {
-  const { openMenu, handleToggleMenu, authLoading, handleAuthLoading } =
-    useStore();
+  const {
+    auth: { isLoading },
+    authActions: { toggleLoading },
+    uiNavbar: { isOpen },
+    uiActions: {
+      uiNavbarActions: { toggleNavbar },
+    },
+  } = useStore();
   const t = useTranslations("navBar");
   const pathname = usePathname();
   const { isMobile } = useResolutions();
@@ -97,9 +103,9 @@ export default function NavBar() {
       icon: LogoutIcon,
       name: t("logout"),
       onClick: async () => {
-        handleAuthLoading(true);
+        toggleLoading(true);
         await signOut();
-        handleAuthLoading(false);
+        toggleLoading(false);
       },
     },
   ];
@@ -133,9 +139,9 @@ export default function NavBar() {
 
   const renderMobileMenu = () => {
     return (
-      <Drawer open={openMenu} variant="temporary" onClose={handleToggleMenu}>
+      <Drawer open={isOpen} variant="temporary" onClose={toggleNavbar}>
         <Button
-          iconButtonProps={{ onClick: handleToggleMenu }}
+          iconButtonProps={{ onClick: toggleNavbar }}
           scope={ButtonScope.ICON}
         >
           <MenuOpenIcon sx={{ fontSize: 40 }} />
@@ -203,7 +209,7 @@ export default function NavBar() {
 
   return (
     <>
-      <BackdropStatus open={authLoading} status={t("signingOut")} />
+      <BackdropStatus open={isLoading} status={t("signingOut")} />
       {isMobile ? renderMobileMenu() : renderDesktopMenu()}
     </>
   );
