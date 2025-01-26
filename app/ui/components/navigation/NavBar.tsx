@@ -4,7 +4,7 @@ import { Fragment } from "react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 // components
-import Logo from "@/app/ui/atoms/Logo";
+import Logo from "@/app/ui/components/Logo";
 import {
   Avatar,
   Box,
@@ -17,8 +17,8 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import Actionable from "@/app/ui/atoms/Actionable";
-import Button, { ButtonScope } from "@/app/ui/atoms/Button";
+import Actionable from "@/app/ui/components/Actionable";
+import Button, { ButtonScope } from "@/app/ui/components/Button";
 // hooks
 import { useResolutions } from "@/app/lib/hooks/useResolutions";
 import { useStore } from "@/app/lib/hooks/useStore";

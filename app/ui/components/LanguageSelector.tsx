@@ -4,7 +4,7 @@
 import SpeedDial, {
   ISpeedDialActions,
   SpeedDialDirections,
-} from "@/app/ui/atoms/SpeedDial";
+} from "@/app/ui/components/SpeedDial";
 // definitions
 import { SupportedLocales } from "@/app/lib/definitions/i18n";
 // icons

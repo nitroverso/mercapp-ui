@@ -1,6 +1,6 @@
 // components
-import RegisterForm from "@/app/(auth)/components/RegisterForm";
-import Actionable from "@/app/ui/atoms/Actionable";
+import RegisterForm from "@/app/ui/components/form/RegisterForm";
+import Actionable from "@/app/ui/components/Actionable";
 import { Box, Typography } from "@mui/material";
 // i18n
 import { useTranslations } from "next-intl";

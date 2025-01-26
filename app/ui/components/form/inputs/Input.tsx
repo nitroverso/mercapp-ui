@@ -4,6 +4,7 @@ import {
   FieldError,
   RegisterOptions,
 } from "react-hook-form";
+// components
 import { TextField } from "@mui/material";
 // i18n
 import { useTranslations } from "next-intl";
@@ -14,7 +15,7 @@ export enum InputSizes {
 }
 
 interface InputProps {
-  control?: Control;
+  control: Control;
   isRequired?: boolean;
   label: string;
   name: string;

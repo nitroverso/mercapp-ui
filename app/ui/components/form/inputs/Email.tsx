@@ -1,10 +1,11 @@
-import { Control } from "react-hook-form";
+// components
 import Input, { InputSizes } from "./Input";
+// hooks
+import { useFormContext } from "@/app/ui/components/form/Form";
 // i18n
 import { useTranslations } from "next-intl";
 
 interface EmailProps {
-  control?: Control;
   label: string;
   name: string;
   size?: InputSizes;
@@ -12,10 +13,12 @@ interface EmailProps {
 
 const Email: React.FC<EmailProps> = (props) => {
   const t = useTranslations("form");
+  const { control } = useFormContext();
 
   return (
     <Input
       {...props}
+      control={control}
       rules={{
         pattern: {
           message: t("emailValid"),

@@ -1,11 +1,11 @@
 "use client";
 
 // components
-import Button, { ButtonSizes, ButtonTypes } from "@/app/ui/atoms/Button";
-import Form from "@/app/ui/molecules/form/Form";
-import Email from "@/app/ui/molecules/form/inputs/Email";
-import Input, { InputSizes } from "@/app/ui/molecules/form/inputs/Input";
-import Password from "@/app/ui/molecules/form/inputs/Password";
+import Button, { ButtonSizes, ButtonTypes } from "@/app/ui/components/Button";
+import Form from "@/app/ui/components/form/Form";
+import Email from "@/app/ui/components/form/inputs/Email";
+import Input, { InputSizes } from "@/app/ui/components/form/inputs/Input";
+import Password from "@/app/ui/components/form/inputs/Password";
 import { Box } from "@mui/material";
 // i18n
 import { useTranslations } from "next-intl";

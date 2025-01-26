@@ -2,9 +2,9 @@
 
 // components
 import { AppBar, Box, Toolbar, Typography } from "@mui/material";
-import Search from "@/app/ui/molecules/form/inputs/Search";
-import Button, { ButtonScope, ButtonSizes } from "@/app/ui/atoms/Button";
-import Form from "@/app/ui/molecules/form/Form";
+import Search from "@/app/ui/components/form/inputs/Search";
+import Button, { ButtonScope, ButtonSizes } from "@/app/ui/components/Button";
+import Form from "@/app/ui/components/form/Form";
 // hooks
 import { useStore } from "@/app/lib/hooks/useStore";
 // icons
@@ -17,7 +17,7 @@ export default function TopBar() {
   return (
     <>
       <AppBar className="rounded-lg" color="inherit" position="static">
-        <Toolbar className="flex items-center justify-between">
+        <Toolbar className="flex items-center justify-between p-5">
           <Box className="flex items-center none">
             <Button
               className="md:hidden"

@@ -1,6 +1,6 @@
 // components
-import LoginForm from "@/app/(auth)/components/LoginForm";
-import Actionable from "@/app/ui/atoms/Actionable";
+import LoginForm from "@/app/ui/components/form/LoginForm";
+import Actionable from "@/app/ui/components/Actionable";
 import { Box, Typography } from "@mui/material";
 // i18n
 import { useTranslations } from "next-intl";

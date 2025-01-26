@@ -1,7 +1,7 @@
 // components
 import Grid from "@mui/material/Grid2";
-import NavBar from "@/app/(dashboard)/components/NavBar";
-import TopBar from "@/app/(dashboard)/components/TopBar";
+import NavBar from "@/app/ui/components/navigation/NavBar";
+import TopBar from "@/app/ui/components/navigation/TopBar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

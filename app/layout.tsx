@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 // components
-import LanguageSelector from "@/app/ui/molecules/LanguageSelector";
+import LanguageSelector from "@/app/ui/components/LanguageSelector";
 // fonts
 import { geistMono, geistSans } from "@/app/ui/typography/fonts";
 // i18n

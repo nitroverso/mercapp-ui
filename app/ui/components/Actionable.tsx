@@ -1,5 +1,5 @@
 // components
-import Button from "@/app/ui/atoms/Button";
+import Button from "@/app/ui/components/Button";
 import { Link as MuiLink } from "@mui/material";
 // next
 import NextLink from "next/link";
