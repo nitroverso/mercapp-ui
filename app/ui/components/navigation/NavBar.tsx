@@ -150,6 +150,8 @@ export default function NavBar() {
           scope={ButtonScope.ICON}
         >
           <MenuOpenIcon sx={{ fontSize: 40 }} />
+          <Logo single height={40} width={40} />
+          <Typography variant="button">Mercapp</Typography>
         </Button>
         <Divider />
         <List>
