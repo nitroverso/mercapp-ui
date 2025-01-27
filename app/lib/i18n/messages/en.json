@@ -1,7 +1,9 @@
 {
   "ui": {
     "success": "Success!",
-    "welcome": "Welcome to Mercapp, {name}!"
+    "welcome": "Welcome back to Mercapp, {name}!",
+    "coming": "Coming Soon",
+    "comingSoon": "We're working hard to launch something amazing. Stay tuned!"
   },
   "auth": {
     "signIn": "Sign In",

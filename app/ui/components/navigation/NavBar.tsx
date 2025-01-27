@@ -110,6 +110,10 @@ export default function NavBar() {
     },
   ];
 
+  const renderBackdropStatus = () => (
+    <BackdropStatus open={isLoading} status={t("signingOut")} />
+  );
+
   const renderMobileMenuItem = ({
     name,
     icon: Icon,
@@ -140,6 +144,7 @@ export default function NavBar() {
   const renderMobileMenu = () => {
     return (
       <Drawer open={isOpen} variant="temporary" onClose={toggleNavbar}>
+        {renderBackdropStatus()}
         <Button
           iconButtonProps={{ onClick: toggleNavbar }}
           scope={ButtonScope.ICON}
@@ -195,7 +200,8 @@ export default function NavBar() {
 
   const renderDesktopMenu = () => {
     return (
-      <Box className="p-4 rounded-lg flex flex-col items-center justify-between bg-gradient-to-b from-orange-400 to-orange-500">
+      <Box className="p-4 rounded-lg flex flex-col items-center justify-between bg-gradient-to-b from-orange-400">
+        {renderBackdropStatus()}
         <Logo single height={100} width={100} />
         <Box className="flex flex-col items-center gap-3">
           {MENU_MAIN_ITEMS.map(renderDesktopMenuItem)}
@@ -207,10 +213,5 @@ export default function NavBar() {
     );
   };
 
-  return (
-    <>
-      <BackdropStatus open={isLoading} status={t("signingOut")} />
-      {isMobile ? renderMobileMenu() : renderDesktopMenu()}
-    </>
-  );
+  return isMobile ? renderMobileMenu() : renderDesktopMenu();
 }

@@ -1,3 +1,6 @@
+// components
+import ComingSoon from "@/app/ui/components/ComingSoon";
+
 export default async function Page() {
-  return <main>Events page</main>;
+  return <ComingSoon />;
 }

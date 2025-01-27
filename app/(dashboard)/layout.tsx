@@ -24,9 +24,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <NavBar />
       </Grid>
       {/* Dashboard page main content */}
-      <Grid component="section" size="grow">
+      <Grid container component="section" flexDirection="column" size="grow">
         <TopBar />
-        {children}
+        <Grid className="p-5" size="grow">
+          {children}
+        </Grid>
       </Grid>
     </Grid>
   );
