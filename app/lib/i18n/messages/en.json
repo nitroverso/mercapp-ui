@@ -1,4 +1,8 @@
 {
+  "ui": {
+    "success": "Success!",
+    "welcome": "Welcome to Mercapp, {name}!"
+  },
   "auth": {
     "signIn": "Sign In",
     "email": "Email",
@@ -13,7 +17,8 @@
     "register": "Register",
     "haveAccount": "Already have an account? Sign in",
     "signingIn": "Signing user in ...",
-    "registering": "Registering user ..."
+    "registering": "Registering user ...",
+    "userCreated": "User registered successfully"
   },
   "dashboard": {
     "search": "Search"
