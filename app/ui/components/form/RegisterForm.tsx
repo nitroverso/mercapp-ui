@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 // components
 import Button, { ButtonSizes, ButtonTypes } from "@/app/ui/components/Button";
 import Form from "@/app/ui/components/form/Form";
@@ -17,23 +18,35 @@ import { InputSizes } from "@/app/ui/components/form/inputs/BaseInput";
 import { registerUser } from "@/app/lib/services/serviceAuth";
 // types
 import { IUserRegisterRequest } from "@/app/lib/definitions/user";
+import { SIGNIN_ROUTE } from "@/app/lib/definitions/routes";
 
 export default function RegisterForm() {
   const t = useTranslations("auth");
+  const router = useRouter();
   const {
     auth: { isLoading },
     authActions: { toggleLoading },
+    uiActions: {
+      uiAlertsActions: { setMessage },
+    },
   } = useStore();
 
   const handleFormSubmit = async (data: IUserRegisterRequest) => {
     toggleLoading(true);
-    await registerUser(data);
-    toggleLoading(false);
+    registerUser(data)
+      .then(() => {
+        setMessage(t("userCreated"));
+        toggleLoading(false);
+        router.push(SIGNIN_ROUTE);
+      })
+      .catch(() => {
+        toggleLoading(false);
+      });
   };
 
   return (
     <>
-      <BackdropStatus open={isLoading} status={t("signingIn")} />
+      <BackdropStatus open={isLoading} status={t("registering")} />
       <Form<IUserRegisterRequest> onSubmit={handleFormSubmit}>
         <Box className="flex flex-col items-center gap-4 h-[350px] overflow-y-auto mb-4 pt-4">
           <TextInput
