@@ -1,5 +1,9 @@
 // types
-import { IUserLoginRequest, IUser } from "@/app/lib/definitions/user";
+import {
+  IAuthenticatedUser,
+  IUserLoginRequest,
+  IUserLoginResponse,
+} from "@/app/lib/definitions/user";
 // utils
 import { commonFetch } from "@/app/lib/utils/common-fetch";
 
@@ -7,13 +11,21 @@ export async function POST(req: Request) {
   try {
     const body: IUserLoginRequest = await req.json();
 
-    const data = await commonFetch<IUser>({
+    const data = await commonFetch<IUserLoginResponse>({
       external: true,
       options: { body: JSON.stringify(body), method: "POST" },
       url: "/auth/login",
     });
 
-    return new Response(JSON.stringify(data), { status: 200 });
+    const response: IAuthenticatedUser = {
+      email: data.session.email,
+      emailVerified: new Date(data.session.email_confirmed_at),
+      id: data.id,
+      profile: { ...data.user },
+      token: data.jwt,
+    };
+
+    return new Response(JSON.stringify(response), { status: 200 });
   } catch (error) {
     console.error("There was en error when calling the endpoint", error); // TODO: Implement global error handler with modal or status or similar from MUI
   }

@@ -2,8 +2,8 @@
 
 // types
 import {
+  IAuthenticatedUser,
   IUserLoginRequest,
-  IUser,
   IUserRegisterRequest,
 } from "@/app/lib/definitions/user";
 // utils
@@ -11,11 +11,10 @@ import { commonFetch } from "@/app/lib/utils/common-fetch";
 
 export async function loginUser(
   params: IUserLoginRequest
-): Promise<IUser | undefined> {
+): Promise<IAuthenticatedUser | undefined> {
   const body = JSON.stringify(params);
 
-  const data = await commonFetch<IUser>({
-    // TODO: Save data in Zustand
+  const authenticatedUser = await commonFetch<IAuthenticatedUser>({
     options: {
       body,
       method: "POST",
@@ -23,7 +22,7 @@ export async function loginUser(
     url: "/auth/login",
   });
 
-  return data;
+  return authenticatedUser;
 }
 
 export async function logoutUser(): Promise<unknown> {
@@ -37,10 +36,10 @@ export async function logoutUser(): Promise<unknown> {
 
 export async function registerUser(
   params: IUserRegisterRequest
-): Promise<IUser | undefined> {
+): Promise<IAuthenticatedUser | undefined> {
   const body = JSON.stringify(params);
 
-  const data = await commonFetch<IUser>({
+  const data = await commonFetch<IAuthenticatedUser>({
     options: {
       body,
       method: "POST",

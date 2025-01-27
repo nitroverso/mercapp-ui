@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
+import { SessionProvider } from "next-auth/react";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
-// components
-import LanguageSelector from "@/app/ui/components/LanguageSelector";
+import AppInitializer from "@/app/AppInitializer";
 // fonts
 import { geistMono, geistSans } from "@/app/ui/typography/fonts";
 // i18n
@@ -33,8 +33,9 @@ export default async function RootLayout({
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <NextIntlClientProvider messages={messages}>
-              <LanguageSelector />
-              {children}
+              <SessionProvider>
+                <AppInitializer>{children}</AppInitializer>
+              </SessionProvider>
             </NextIntlClientProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
