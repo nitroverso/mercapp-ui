@@ -3,17 +3,17 @@ import Input, { InputSizes } from "./BaseInput";
 // hooks
 import { useFormContext } from "@/app/ui/components/form/Form";
 
-interface EmailProps {
+interface TextInputProps {
   isRequired?: boolean;
   label: string;
   name: string;
   size?: InputSizes;
 }
 
-const Email: React.FC<EmailProps> = (props) => {
+const TextInput: React.FC<TextInputProps> = (props) => {
   const { control } = useFormContext();
 
   return <Input {...props} control={control} />;
 };
 
-export default Email;
+export default TextInput;

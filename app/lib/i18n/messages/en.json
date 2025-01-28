@@ -3,7 +3,9 @@
     "success": "Success!",
     "welcome": "Welcome back to Mercapp, {name}!",
     "coming": "Coming Soon",
-    "comingSoon": "We're working hard to launch something amazing. Stay tuned!"
+    "comingSoon": "We're working hard to launch something amazing. Stay tuned!",
+    "loadingApp": "Loading app data ...",
+    "empty": "Ups, nothing to see here!"
   },
   "auth": {
     "signIn": "Sign In",
@@ -38,5 +40,11 @@
     "settings": "Settings",
     "logout": "Logout",
     "signingOut": "Signing user out ..."
+  },
+  "settings": {
+    "categories": "Categories",
+    "categoriesDesc": "Mercapp categories are listed below",
+    "categoryAdd": "Add new category",
+    "categoryEdit": "Edit category"
   }
 }

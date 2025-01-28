@@ -1,3 +1,5 @@
+import { auth } from "@/auth";
+
 interface FetchOptions extends RequestInit {
   headers?: Record<string, string>;
 }
@@ -14,12 +16,17 @@ export const commonFetch = async <T>({
   external = false,
 }: CommonFetchParams): Promise<T> => {
   try {
+    const session = await auth();
+
     const apiUrl = `${
       external ? process.env.SERVER_API_BASE_URL : process.env.NEXT_API_BASE_URL
     }${url}`;
 
+    const authToken = session?.user.token;
+
     const defaultOptions: FetchOptions = {
       headers: {
+        ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}), // This is only available until services calling API/ROUTES, not in API/ROUTES calling external
         "Content-Type": "application/json",
       },
       method: "GET",

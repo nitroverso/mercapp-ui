@@ -1,6 +1,10 @@
-// components
-import ComingSoon from "@/app/ui/components/ComingSoon";
+// modules
+import Categories from "@/app/(dashboard)/settings/modules/Categories";
 
 export default async function Page() {
-  return <ComingSoon />;
+  return (
+    <>
+      <Categories />
+    </>
+  );
 }

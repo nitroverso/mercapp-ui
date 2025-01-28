@@ -21,9 +21,9 @@ declare module "next-auth" {
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   events: {
-    signOut: async (message) => {
+    signOut: async () => {
       await logoutUser();
-      console.log("Usuario cerró sesión:", message); // TODO: Use a events handler to show a toast message or similar
+      console.info("Usuario cerró sesión"); // TODO: Use a events handler to show a toast message or similar
     },
   },
   pages: {
