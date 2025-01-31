@@ -10,6 +10,27 @@ interface CommonFetchParams {
   external?: boolean;
 }
 
+export async function getRequestBody<TypeRequest>(req: Request) {
+  const body: TypeRequest = await req.json();
+  return JSON.stringify(body);
+}
+
+export const checkAuthentication = (req: Request) => {
+  const authHeader = req.headers.get("Authorization");
+
+  if (!authHeader) {
+    return Response.json(
+      {
+        error:
+          "Missing Authorization header between Service and API/ROUTE GET Categories",
+      },
+      { status: 401 }
+    );
+  }
+
+  return authHeader;
+};
+
 export const commonFetch = async <T>({
   url,
   options = {},

@@ -1,15 +1,15 @@
 // types
 import { IUser, IUserRegisterRequest } from "@/app/lib/definitions/user";
 // utils
-import { commonFetch } from "@/app/lib/utils/common-fetch";
+import { commonFetch, getRequestBody } from "@/app/lib/utils/common-fetch";
 
 export async function POST(req: Request) {
   try {
-    const body: IUserRegisterRequest = await req.json();
+    const body = await getRequestBody<IUserRegisterRequest>(req);
 
     const data = await commonFetch<IUser>({
       external: true,
-      options: { body: JSON.stringify(body), method: "POST" },
+      options: { body, method: "POST" },
       url: "/auth/register",
     });
 

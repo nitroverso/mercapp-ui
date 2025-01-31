@@ -3,7 +3,7 @@ type IUserSession = {
   email_confirmed_at: string;
 };
 
-type IUser = {
+export type IUser = {
   birthday: string;
   firstName: string;
   id: string;
