@@ -19,7 +19,7 @@ export type IAuthenticatedUser = {
   profile: IUser;
 };
 
-/** ******* SignIn Requests ******* */
+//** ******* SignIn Requests ******* */
 export type IUserLoginRequest = {
   email: string;
   password: string;
@@ -31,9 +31,8 @@ export type IUserLoginResponse = {
   session: IUserSession;
   user: IUser;
 };
-/** ******* END OF: SignIn Requests ******* */
 
-/** ******* SignUp Requests ******* */
+//** ******* SignUp Requests ******* */
 export type IUserRegisterRequest = {
   email: string;
   password: string;
@@ -41,4 +40,3 @@ export type IUserRegisterRequest = {
   lastName: string;
   birthday: string;
 };
-/** ******* END OF: SignUp Requests ******* */

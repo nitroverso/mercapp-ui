@@ -1,14 +1,24 @@
 import { auth } from "@/auth";
+// utils
+import { handleErrorAPI } from "@/app/lib/utils/errorHandler";
+// types
+import { ERROR_TYPES } from "@/app/lib/definitions/errors";
 
 interface FetchOptions extends RequestInit {
   headers?: Record<string, string>;
 }
 
 interface CommonFetchParams {
-  url: string;
-  options?: FetchOptions;
-  external?: boolean;
+  external?: boolean; // ? Defines if the API call is external to our backend or to our internal routes (api folder)
+  options?: FetchOptions; // ? Defines fetch options
+  source: string; // ? Defines the place where the fetch is being used
+  url: string; // ? Defines the uri to do the call
 }
+
+export type DefaultResponse<T> = {
+  data: T;
+  message: string;
+};
 
 export async function getRequestBody<TypeRequest>(req: Request) {
   const body: TypeRequest = await req.json();
@@ -18,7 +28,10 @@ export async function getRequestBody<TypeRequest>(req: Request) {
 export const checkAuthentication = (req: Request) => {
   const authHeader = req.headers.get("Authorization");
 
+  console.log({ authHeader });
+
   if (!authHeader) {
+    console.error({ authHeader });
     return Response.json(
       {
         error:
@@ -32,27 +45,23 @@ export const checkAuthentication = (req: Request) => {
 };
 
 export const commonFetch = async <T>({
-  url,
-  options = {},
   external = false,
+  options = {},
+  source,
+  url,
 }: CommonFetchParams): Promise<T> => {
   try {
+    //** ******* ******* OPTIONS OBJECT ******* ******* */
     const session = await auth();
-
-    const apiUrl = `${
-      external ? process.env.SERVER_API_BASE_URL : process.env.NEXT_API_BASE_URL
-    }${url}`;
-
     const authToken = session?.user.token;
-
     const defaultOptions: FetchOptions = {
       headers: {
-        ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}), // This is only available until services calling API/ROUTES, not in API/ROUTES calling external
+        // ? This is only available until services calling API/ROUTES, not in API/ROUTES calling external (for them use checkAuthentication)
+        ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
         "Content-Type": "application/json",
       },
       method: "GET",
     };
-
     const fetchOptions: FetchOptions = {
       ...defaultOptions,
       ...options,
@@ -62,23 +71,27 @@ export const commonFetch = async <T>({
       },
     };
 
+    //** ******* ******* FETCH EXECUTION ******* ******* */
+    const apiUrl = `${
+      external ? process.env.SERVER_API_BASE_URL : process.env.NEXT_API_BASE_URL
+    }${url}`;
     const response = await fetch(apiUrl, fetchOptions);
 
+    //** ******* ******* RESPONSE ERROR ******* ******* */
+    // ? Process when response is not OK
     if (!response.ok) {
+      // TODO: logout user if status = 401
       const errorData = await response.json();
-      throw new Error(
-        `Error: ${response.status} - ${response.statusText} | ${JSON.stringify(
-          errorData
-        )}`
-      );
+      throw new Error(`${response.status}|${response.statusText}`, {
+        cause: `${JSON.stringify(errorData)}`,
+      });
     }
 
+    //** ******* ******* RETURN RESPONSE ******* ******* */
     return (await response.json()) as T;
   } catch (error) {
-    console.error(
-      "Fetch Error:",
-      error instanceof Error ? error.message : "Unknown error"
-    );
-    throw error; // TODO: Implement global error handler with modal or status or similar from MUI
+    //** ******* ******* ERROR HANDLER ******* ******* */
+    const errorType = external ? ERROR_TYPES.EXTERNAL : ERROR_TYPES.INTERNAL;
+    throw handleErrorAPI({ error, errorType, source });
   }
 };

@@ -2,12 +2,18 @@
 
 // types
 import {
+  API_LOGIN_ROUTE,
+  API_LOGOUT_ROUTE,
+  API_REGISTER_ROUTE,
+} from "@/app/lib/definitions/routes";
+import {
   IAuthenticatedUser,
   IUserLoginRequest,
   IUserRegisterRequest,
 } from "@/app/lib/definitions/user";
 // utils
 import { commonFetch } from "@/app/lib/utils/common-fetch";
+import { buildSourceString } from "@/app/lib/utils/errorHandler";
 
 export async function loginUser(
   params: IUserLoginRequest
@@ -19,7 +25,8 @@ export async function loginUser(
       body,
       method: "POST",
     },
-    url: "/auth/login",
+    source: buildSourceString({ fileName: "serviceAuth", method: "loginUser" }),
+    url: API_LOGIN_ROUTE,
   });
 
   return authenticatedUser;
@@ -28,7 +35,11 @@ export async function loginUser(
 export async function logoutUser(): Promise<unknown> {
   const data = await commonFetch({
     options: { method: "POST" },
-    url: "/auth/logout",
+    source: buildSourceString({
+      fileName: "serviceAuth",
+      method: "logoutUser",
+    }),
+    url: API_LOGOUT_ROUTE,
   });
 
   return data;
@@ -44,7 +55,11 @@ export async function registerUser(
       body,
       method: "POST",
     },
-    url: "/auth/register",
+    source: buildSourceString({
+      fileName: "serviceAuth",
+      method: "registerUser",
+    }),
+    url: API_REGISTER_ROUTE,
   });
 
   return data;

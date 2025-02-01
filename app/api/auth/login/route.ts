@@ -1,4 +1,5 @@
 // types
+import { API_LOGIN_ROUTE } from "@/app/lib/definitions/routes";
 import {
   IAuthenticatedUser,
   IUserLoginRequest,
@@ -6,6 +7,7 @@ import {
 } from "@/app/lib/definitions/user";
 // utils
 import { commonFetch, getRequestBody } from "@/app/lib/utils/common-fetch";
+import { buildSourceString } from "@/app/lib/utils/errorHandler";
 
 export async function POST(req: Request) {
   try {
@@ -14,7 +16,11 @@ export async function POST(req: Request) {
     const data = await commonFetch<IUserLoginResponse>({
       external: true,
       options: { body, method: "POST" },
-      url: "/auth/login",
+      source: buildSourceString({
+        fileName: "login",
+        method: "POST",
+      }),
+      url: API_LOGIN_ROUTE,
     });
 
     const response: IAuthenticatedUser = {
@@ -27,6 +33,6 @@ export async function POST(req: Request) {
 
     return new Response(JSON.stringify(response), { status: 200 });
   } catch (error) {
-    console.error("There was en error when calling the endpoint", error); // TODO: Implement global error handler with modal or status or similar from MUI
+    throw error;
   }
 }

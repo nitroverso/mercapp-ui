@@ -1,7 +1,9 @@
 // types
+import { API_REGISTER_ROUTE } from "@/app/lib/definitions/routes";
 import { IUser, IUserRegisterRequest } from "@/app/lib/definitions/user";
 // utils
 import { commonFetch, getRequestBody } from "@/app/lib/utils/common-fetch";
+import { buildSourceString } from "@/app/lib/utils/errorHandler";
 
 export async function POST(req: Request) {
   try {
@@ -10,11 +12,15 @@ export async function POST(req: Request) {
     const data = await commonFetch<IUser>({
       external: true,
       options: { body, method: "POST" },
-      url: "/auth/register",
+      source: buildSourceString({
+        fileName: "register",
+        method: "POST",
+      }),
+      url: API_REGISTER_ROUTE,
     });
 
     return new Response(JSON.stringify(data), { status: 200 });
   } catch (error) {
-    console.error("There was en error when calling the endpoint", error); // TODO: Implement global error handler with modal or status or similar from MUI
+    throw error;
   }
 }
