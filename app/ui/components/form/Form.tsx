@@ -31,7 +31,10 @@ const Form = <T extends FieldValues>({
   onSubmit,
 }: FormProps<T>) => {
   const methods = useForm<T>({ defaultValues });
-  const handleSubmit = methods.handleSubmit(onSubmit);
+  const handleSubmit = methods.handleSubmit(async (values) => {
+    await onSubmit(values);
+    methods.reset();
+  });
 
   return (
     <FormProvider {...methods}>
