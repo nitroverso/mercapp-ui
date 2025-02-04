@@ -49,7 +49,11 @@ export default function Button({
   variant,
 }: ButtonProps) {
   const renderIconButton = () => {
-    return <IconButton {...iconButtonProps}>{children}</IconButton>;
+    return (
+      <IconButton {...iconButtonProps} type={type ?? ButtonTypes.BUTTON}>
+        {children}
+      </IconButton>
+    );
   };
 
   const renderDefaultButton = () => {

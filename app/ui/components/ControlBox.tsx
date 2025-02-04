@@ -9,7 +9,6 @@ import {
   List,
   ListItem,
   ListItemAvatar,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
   Paper,
@@ -29,7 +28,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Dns from "@mui/icons-material/Dns";
 import { InputSizes } from "@/app/ui/components/form/inputs/BaseInput";
 
-type ControlBoxFormT = { itemName: string };
+export type ControlBoxFormT = { itemName: string };
 
 interface ControlBoxProps {
   boxMainHeader: {
@@ -51,9 +50,9 @@ export default function ControlBox({
   boxItemManager: { handleSubmit, inputLabel },
   boxItemsList: { description, items },
 }: ControlBoxProps) {
-  const [open, setOpen] = useState(true);
+  const [editMode, setEditMode] = useState(false);
 
-  const renderBoxMainHeader = () => {
+  const renderHeader = () => {
     return (
       <Box className="p-5 flex items-center">
         {/* Control box main header icon */}
@@ -70,7 +69,7 @@ export default function ControlBox({
     );
   };
 
-  const renderBoxItemManager = () => {
+  const renderForm = () => {
     return (
       <ListItem component="div">
         <Form<ControlBoxFormT> onSubmit={handleSubmit}>
@@ -78,7 +77,7 @@ export default function ControlBox({
             <TextInput
               isRequired
               label={inputLabel}
-              name="firstName"
+              name="itemName"
               size={InputSizes.SMALL}
             />
             {/* Control box item manager action button (could be an array) */}
@@ -98,21 +97,19 @@ export default function ControlBox({
     );
   };
 
-  const renderBoxItemsList = () => {
+  const renderList = () => {
     return (
       <Box>
         {/* Control box items description */}
-        <ListItemButton alignItems="flex-start">
-          <ListItemText
-            primary={description}
-            primaryTypographyProps={{
-              fontSize: 15,
-              fontWeight: "medium",
-              lineHeight: "20px",
-              mb: "2px",
-            }}
-          />
-        </ListItemButton>
+        <ListItemText
+          primary={description}
+          primaryTypographyProps={{
+            fontSize: 15,
+            fontWeight: "medium",
+            lineHeight: "20px",
+            padding: "8px 16px",
+          }}
+        />
         {/* Control box items list with actions */}
         {items.length ? (
           items.map((item) => (
@@ -120,7 +117,11 @@ export default function ControlBox({
               key={item.id}
               secondaryAction={
                 <Button
-                  iconButtonProps={{ "aria-label": "delete", edge: "end" }}
+                  iconButtonProps={{
+                    "aria-label": "delete",
+                    edge: "end",
+                    onClick: () => setEditMode(true),
+                  }}
                   scope={ButtonScope.ICON}
                 >
                   {/* Control box item list action icon */}
@@ -147,11 +148,11 @@ export default function ControlBox({
     <Box sx={{ display: "flex" }}>
       <Paper elevation={0} sx={{ minWidth: 256, width: 400 }}>
         <List component="nav">
-          {renderBoxMainHeader()}
+          {renderHeader()}
           <Divider />
-          {renderBoxItemManager()}
+          {renderForm()}
           <Divider />
-          {renderBoxItemsList()}
+          {renderList()}
         </List>
       </Paper>
     </Box>

@@ -1,34 +1,66 @@
 // types
-import { ICategory } from "@/app/lib/definitions/categories";
+import {
+  IAddCategoryRequest,
+  ICategory,
+} from "@/app/lib/definitions/categories";
+import { API_CATEGORIES_ROUTE } from "@/app/lib/definitions/routes";
 // utils
-import { commonFetch } from "@/app/lib/utils/common-fetch";
+import {
+  checkAuthentication,
+  commonFetch,
+  DefaultResponse,
+  getRequestBody,
+} from "@/app/lib/utils/common-fetch";
+import { buildSourceString } from "@/app/lib/utils/errorHandler";
 
 export async function GET(req: Request) {
-  const authHeader = req.headers.get("Authorization");
-
-  if (!authHeader) {
-    return Response.json(
-      {
-        error:
-          "Missing Authorization header between Service and API/ROUTE GET Categories",
-      },
-      { status: 401 }
-    );
-  }
+  const authHeader = checkAuthentication(req);
 
   try {
-    const data = await commonFetch<ICategory[]>({
+    const response = await commonFetch<DefaultResponse<ICategory[]>>({
       external: true,
       options: {
         headers: {
-          Authorization: authHeader,
+          Authorization: authHeader as string,
         },
       },
-      url: "/categories",
+      source: buildSourceString({
+        fileName: "categories",
+        method: "GET",
+      }),
+      url: API_CATEGORIES_ROUTE,
     });
 
-    return new Response(JSON.stringify(data), { status: 200 });
+    return new Response(JSON.stringify(response.data), { status: 200 });
   } catch (error) {
-    console.error("There was en error when calling the endpoint", error); // TODO: Implement global error handler with modal or status or similar from MUI
+    throw error;
+  }
+}
+
+export async function POST(req: Request) {
+  const authHeader = checkAuthentication(req);
+
+  try {
+    const body = await getRequestBody<IAddCategoryRequest>(req);
+
+    const response = await commonFetch<DefaultResponse<ICategory>>({
+      external: true,
+      options: {
+        body,
+        headers: {
+          Authorization: authHeader as string,
+        },
+        method: "POST",
+      },
+      source: buildSourceString({
+        fileName: "categories",
+        method: "POST",
+      }),
+      url: API_CATEGORIES_ROUTE,
+    });
+
+    return new Response(JSON.stringify(response.data), { status: 200 });
+  } catch (error) {
+    throw error;
   }
 }

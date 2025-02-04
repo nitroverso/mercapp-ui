@@ -28,10 +28,10 @@ export async function getRequestBody<TypeRequest>(req: Request) {
 export const checkAuthentication = (req: Request) => {
   const authHeader = req.headers.get("Authorization");
 
-  console.log({ authHeader });
+  console.log("LOG: ", { authHeader });
 
   if (!authHeader) {
-    console.error({ authHeader });
+    console.error("ERROR:", { authHeader });
     return Response.json(
       {
         error:
