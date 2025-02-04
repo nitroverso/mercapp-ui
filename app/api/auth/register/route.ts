@@ -1,3 +1,4 @@
+import { type NextRequest } from "next/server";
 // types
 import { API_REGISTER_ROUTE } from "@/app/lib/definitions/routes";
 import { IUser, IUserRegisterRequest } from "@/app/lib/definitions/user";
@@ -5,7 +6,7 @@ import { IUser, IUserRegisterRequest } from "@/app/lib/definitions/user";
 import { commonFetch, getRequestBody } from "@/app/lib/utils/common-fetch";
 import { buildSourceString } from "@/app/lib/utils/errorHandler";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const body = await getRequestBody<IUserRegisterRequest>(req);
 

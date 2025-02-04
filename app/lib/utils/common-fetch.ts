@@ -88,7 +88,7 @@ export const commonFetch = async <T>({
     }
 
     //** ******* ******* RETURN RESPONSE ******* ******* */
-    return (await response.json()) as T;
+    return response.body ? ((await response.json()) as T) : (response as T);
   } catch (error) {
     //** ******* ******* ERROR HANDLER ******* ******* */
     const errorType = external ? ERROR_TYPES.EXTERNAL : ERROR_TYPES.INTERNAL;

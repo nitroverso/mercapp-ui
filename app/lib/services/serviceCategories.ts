@@ -4,6 +4,7 @@
 import {
   IAddCategoryRequest,
   ICategory,
+  IDeleteCategoryRequest,
 } from "@/app/lib/definitions/categories";
 import { API_CATEGORIES_ROUTE } from "@/app/lib/definitions/routes";
 // utils
@@ -34,4 +35,18 @@ export async function addNewCategory(
     url: API_CATEGORIES_ROUTE,
   });
   return category;
+}
+
+export async function deleteCategory(
+  params: IDeleteCategoryRequest
+): Promise<null> {
+  await commonFetch<ICategory>({
+    options: { method: "DELETE" },
+    source: buildSourceString({
+      fileName: "serviceCategories",
+      method: "deleteCategory",
+    }),
+    url: `${API_CATEGORIES_ROUTE}/${params.categoryId}`,
+  });
+  return null;
 }

@@ -1,3 +1,4 @@
+import { type NextRequest } from "next/server";
 // types
 import { API_LOGIN_ROUTE } from "@/app/lib/definitions/routes";
 import {
@@ -9,7 +10,7 @@ import {
 import { commonFetch, getRequestBody } from "@/app/lib/utils/common-fetch";
 import { buildSourceString } from "@/app/lib/utils/errorHandler";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const body = await getRequestBody<IUserLoginRequest>(req);
 

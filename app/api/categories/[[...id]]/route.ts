@@ -1,3 +1,4 @@
+import { type NextRequest } from "next/server";
 // types
 import {
   IAddCategoryRequest,
@@ -13,7 +14,7 @@ import {
 } from "@/app/lib/utils/common-fetch";
 import { buildSourceString } from "@/app/lib/utils/errorHandler";
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   const authHeader = checkAuthentication(req);
 
   try {
@@ -37,7 +38,7 @@ export async function GET(req: Request) {
   }
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const authHeader = checkAuthentication(req);
 
   try {
@@ -60,6 +61,35 @@ export async function POST(req: Request) {
     });
 
     return new Response(JSON.stringify(response.data), { status: 200 });
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string[] }> }
+) {
+  const authHeader = checkAuthentication(req);
+  const categoryId = (await params).id?.[0];
+
+  try {
+    const response = await commonFetch<Response>({
+      external: true,
+      options: {
+        headers: {
+          Authorization: authHeader as string,
+        },
+        method: "DELETE",
+      },
+      source: buildSourceString({
+        fileName: "categories",
+        method: "DELETE",
+      }),
+      url: `${API_CATEGORIES_ROUTE}/${categoryId}`,
+    });
+
+    return response;
   } catch (error) {
     throw error;
   }

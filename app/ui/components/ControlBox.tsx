@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 // components
 import {
   Avatar,
@@ -25,9 +22,11 @@ import EmptyState from "@/app/ui/components/Empty";
 // icons
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import Dns from "@mui/icons-material/Dns";
 import { InputSizes } from "@/app/ui/components/form/inputs/BaseInput";
 
+type ControlBoxItem = { id: string; label: string };
 export type ControlBoxFormT = { itemName: string };
 
 interface ControlBoxProps {
@@ -41,17 +40,16 @@ interface ControlBoxProps {
   };
   boxItemsList: {
     description: string;
-    items: { id: string; label: string }[];
+    items: ControlBoxItem[];
+    onDelete: (id: string) => void;
   };
 }
 
 export default function ControlBox({
   boxMainHeader: { boxIcon, boxTitle },
   boxItemManager: { handleSubmit, inputLabel },
-  boxItemsList: { description, items },
+  boxItemsList: { description, items, onDelete },
 }: ControlBoxProps) {
-  const [editMode, setEditMode] = useState(false);
-
   const renderHeader = () => {
     return (
       <Box className="p-5 flex items-center">
@@ -98,36 +96,38 @@ export default function ControlBox({
   };
 
   const renderList = () => {
+    const renderSecondaryActions = (item: ControlBoxItem) => {
+      return (
+        <Box className="flex">
+          <Button
+            iconButtonProps={{
+              disabled: true,
+              onClick: () => {},
+            }}
+            scope={ButtonScope.ICON}
+          >
+            {/* Control box item list action icon */}
+            <EditIcon />
+          </Button>
+          <Button
+            iconButtonProps={{ onClick: () => onDelete(item.id) }}
+            scope={ButtonScope.ICON}
+          >
+            {/* Control box item list action icon */}
+            <DeleteIcon />
+          </Button>
+        </Box>
+      );
+    };
+
     return (
-      <Box>
-        {/* Control box items description */}
-        <ListItemText
-          primary={description}
-          primaryTypographyProps={{
-            fontSize: 15,
-            fontWeight: "medium",
-            lineHeight: "20px",
-            padding: "8px 16px",
-          }}
-        />
+      <Box className="h-60 overflow-auto">
         {/* Control box items list with actions */}
         {items.length ? (
           items.map((item) => (
             <ListItem
               key={item.id}
-              secondaryAction={
-                <Button
-                  iconButtonProps={{
-                    "aria-label": "delete",
-                    edge: "end",
-                    onClick: () => setEditMode(true),
-                  }}
-                  scope={ButtonScope.ICON}
-                >
-                  {/* Control box item list action icon */}
-                  <DeleteIcon />
-                </Button>
-              }
+              secondaryAction={renderSecondaryActions(item)}
             >
               <ListItemAvatar>
                 <Avatar>
@@ -145,12 +145,23 @@ export default function ControlBox({
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box className="flex">
       <Paper elevation={0} sx={{ minWidth: 256, width: 400 }}>
         <List component="nav">
           {renderHeader()}
           <Divider />
           {renderForm()}
+          <Divider />
+          {/* Control box items description */}
+          <ListItemText
+            primary={description}
+            primaryTypographyProps={{
+              fontSize: 15,
+              fontWeight: "medium",
+              lineHeight: "20px",
+              padding: "8px 16px",
+            }}
+          />
           <Divider />
           {renderList()}
         </List>

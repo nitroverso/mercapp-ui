@@ -7,3 +7,7 @@ export type ICategory = {
 export type IAddCategoryRequest = {
   name: string;
 };
+
+export type IDeleteCategoryRequest = {
+  categoryId: string;
+};

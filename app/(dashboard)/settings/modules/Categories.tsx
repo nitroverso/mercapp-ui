@@ -6,7 +6,10 @@ import ControlBox, { ControlBoxFormT } from "@/app/ui/components/ControlBox";
 // hooks
 import { useStore } from "@/app/lib/hooks/useStore";
 // services
-import { addNewCategory } from "@/app/lib/services/serviceCategories";
+import {
+  addNewCategory,
+  deleteCategory,
+} from "@/app/lib/services/serviceCategories";
 
 const Categories = () => {
   const t = useTranslations("settings");
@@ -22,6 +25,14 @@ const Categories = () => {
     setLoadingCategories(false);
   };
 
+  const handleDelete = async (categoryId: string) => {
+    setLoadingCategories(true);
+    await deleteCategory({ categoryId });
+    const newList = [...list].filter(({ id }) => id !== categoryId);
+    setCategories(newList);
+    setLoadingCategories(false);
+  };
+
   return (
     <ControlBox
       boxItemManager={{ handleSubmit, inputLabel: t("categoryAdd") }}
@@ -31,6 +42,7 @@ const Categories = () => {
           id: category.id,
           label: category.name,
         })),
+        onDelete: handleDelete,
       }}
       boxMainHeader={{
         boxIcon: "🍱",
