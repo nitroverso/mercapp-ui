@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 // components
 import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import Search from "@/app/ui/components/form/inputs/SearchInput";
@@ -10,13 +11,33 @@ import { useStore } from "@/app/lib/hooks/useStore";
 // icons
 import MenuIcon from "@mui/icons-material/Menu";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+// i18n
+import { useTranslations } from "next-intl";
+// routes
+import {
+  CUPBOARD_ROUTE,
+  EVENTS_ROUTE,
+  NOTIFICATIONS_ROUTE,
+  PROFILE_ROUTE,
+  SETTINGS_ROUTE,
+} from "@/app/lib/definitions/routes";
 
 export default function TopBar() {
+  const t = useTranslations("navBar");
+  const pathname = usePathname();
   const {
     uiActions: {
       uiNavbarActions: { toggleNavbar },
     },
   } = useStore();
+
+  const ROUTE_MAPS_TO_MENU_ITEMS_TITLES = {
+    [EVENTS_ROUTE]: t("home"),
+    [CUPBOARD_ROUTE]: t("cupboard"),
+    [NOTIFICATIONS_ROUTE]: t("notifications"),
+    [PROFILE_ROUTE]: t("profile"),
+    [SETTINGS_ROUTE]: t("settings"),
+  };
 
   return (
     <>
@@ -41,7 +62,11 @@ export default function TopBar() {
               sx={{ display: { xs: "none", sm: "block" } }}
               variant="h6"
             >
-              MUI
+              {
+                ROUTE_MAPS_TO_MENU_ITEMS_TITLES[
+                  pathname as keyof typeof ROUTE_MAPS_TO_MENU_ITEMS_TITLES
+                ]
+              }
             </Typography>
           </Box>
           <Box className="w-fit">

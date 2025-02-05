@@ -1,4 +1,5 @@
 "use client";
+
 import { signOut } from "next-auth/react";
 import { Fragment } from "react";
 import { usePathname } from "next/navigation";
