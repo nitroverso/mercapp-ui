@@ -1,18 +1,25 @@
 import { auth } from "@/auth";
+// types
+import { ISourceStringParams } from "@/app/lib/definitions/errors";
 // utils
 import { handleErrorAPI } from "@/app/lib/utils/errorHandler";
-// types
-import { ERROR_TYPES } from "@/app/lib/definitions/errors";
 
 interface FetchOptions extends RequestInit {
   headers?: Record<string, string>;
+  reqBody?: object;
 }
 
 interface CommonFetchParams {
-  external?: boolean; // ? Defines if the API call is external to our backend or to our internal routes (api folder)
   options?: FetchOptions; // ? Defines fetch options
-  source: string; // ? Defines the place where the fetch is being used
+  source: ISourceStringParams; // ? Defines the place where the fetch is being used
   url: string; // ? Defines the uri to do the call
+}
+
+export enum FETCH_METHODS {
+  DELETE = "DELETE",
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
 }
 
 export type DefaultResponse<T> = {
@@ -20,32 +27,7 @@ export type DefaultResponse<T> = {
   message: string;
 };
 
-export async function getRequestBody<TypeRequest>(req: Request) {
-  const body: TypeRequest = await req.json();
-  return JSON.stringify(body);
-}
-
-export const checkAuthentication = (req: Request) => {
-  const authHeader = req.headers.get("Authorization");
-
-  console.log("LOG: ", { authHeader });
-
-  if (!authHeader) {
-    console.error("ERROR:", { authHeader });
-    return Response.json(
-      {
-        error:
-          "Missing Authorization header between Service and API/ROUTE GET Categories",
-      },
-      { status: 401 }
-    );
-  }
-
-  return authHeader;
-};
-
 export const commonFetch = async <T>({
-  external = false,
   options = {},
   source,
   url,
@@ -56,15 +38,19 @@ export const commonFetch = async <T>({
     const authToken = session?.user.token;
     const defaultOptions: FetchOptions = {
       headers: {
-        // ? This is only available until services calling API/ROUTES, not in API/ROUTES calling external (for them use checkAuthentication)
         ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
         "Content-Type": "application/json",
       },
-      method: "GET",
+      method: FETCH_METHODS.GET,
     };
     const fetchOptions: FetchOptions = {
       ...defaultOptions,
       ...options,
+      ...([FETCH_METHODS.POST, FETCH_METHODS.PUT].includes(
+        (options.method as FETCH_METHODS) ?? FETCH_METHODS.GET
+      )
+        ? { body: JSON.stringify(options.reqBody) }
+        : {}),
       headers: {
         ...defaultOptions.headers,
         ...options.headers,
@@ -72,9 +58,7 @@ export const commonFetch = async <T>({
     };
 
     //** ******* ******* FETCH EXECUTION ******* ******* */
-    const apiUrl = `${
-      external ? process.env.SERVER_API_BASE_URL : process.env.NEXT_API_BASE_URL
-    }${url}`;
+    const apiUrl = `${process.env.SERVER_API_BASE_URL}${url}`;
     const response = await fetch(apiUrl, fetchOptions);
 
     //** ******* ******* RESPONSE ERROR ******* ******* */
@@ -91,7 +75,6 @@ export const commonFetch = async <T>({
     return response.body ? ((await response.json()) as T) : (response as T);
   } catch (error) {
     //** ******* ******* ERROR HANDLER ******* ******* */
-    const errorType = external ? ERROR_TYPES.EXTERNAL : ERROR_TYPES.INTERNAL;
-    throw handleErrorAPI({ error, errorType, source });
+    throw handleErrorAPI({ error, source });
   }
 };

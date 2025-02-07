@@ -8,45 +8,40 @@ import {
 } from "@/app/lib/definitions/categories";
 import { API_CATEGORIES_ROUTE } from "@/app/lib/definitions/routes";
 // utils
-import { commonFetch } from "@/app/lib/utils/common-fetch";
-import { buildSourceString } from "@/app/lib/utils/errorHandler";
+import {
+  commonFetch,
+  DefaultResponse,
+  FETCH_METHODS,
+} from "@/app/lib/utils/common-fetch";
+
+const fileName = "serviceCategories";
 
 export async function getAllCategories(): Promise<ICategory[]> {
-  const categories = await commonFetch<ICategory[]>({
-    source: buildSourceString({
-      fileName: "serviceCategories",
-      method: "getAllCategories",
-    }),
+  const { data } = await commonFetch<DefaultResponse<ICategory[]>>({
+    source: { fileName, method: "getAllCategories" },
     url: API_CATEGORIES_ROUTE,
   });
-  return categories;
+  return data;
 }
 
 export async function addNewCategory(
-  params: IAddCategoryRequest
+  reqBody: IAddCategoryRequest
 ): Promise<ICategory> {
-  const body = JSON.stringify(params);
-  const category = await commonFetch<ICategory>({
-    options: { body, method: "POST" },
-    source: buildSourceString({
-      fileName: "serviceCategories",
-      method: "addNewCategory",
-    }),
+  const { data } = await commonFetch<DefaultResponse<ICategory>>({
+    options: { reqBody, method: FETCH_METHODS.POST },
+    source: { fileName, method: "addNewCategory" },
     url: API_CATEGORIES_ROUTE,
   });
-  return category;
+  return data;
 }
 
 export async function deleteCategory(
-  params: IDeleteCategoryRequest
+  reqBody: IDeleteCategoryRequest
 ): Promise<null> {
-  await commonFetch<ICategory>({
-    options: { method: "DELETE" },
-    source: buildSourceString({
-      fileName: "serviceCategories",
-      method: "deleteCategory",
-    }),
-    url: `${API_CATEGORIES_ROUTE}/${params.categoryId}`,
+  await commonFetch<Response>({
+    options: { method: FETCH_METHODS.DELETE },
+    source: { fileName, method: "deleteCategory" },
+    url: `${API_CATEGORIES_ROUTE}/${reqBody.categoryId}`,
   });
   return null;
 }

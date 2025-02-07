@@ -9,36 +9,41 @@ import {
 import {
   IAuthenticatedUser,
   IUserLoginRequest,
+  IUserLoginResponse,
   IUserRegisterRequest,
 } from "@/app/lib/definitions/user";
 // utils
-import { commonFetch } from "@/app/lib/utils/common-fetch";
-import { buildSourceString } from "@/app/lib/utils/errorHandler";
+import { commonFetch, FETCH_METHODS } from "@/app/lib/utils/common-fetch";
+
+const fileName = "serviceAuth";
 
 export async function loginUser(
-  params: IUserLoginRequest
+  reqBody: IUserLoginRequest
 ): Promise<IAuthenticatedUser | undefined> {
-  const body = JSON.stringify(params);
-
-  const authenticatedUser = await commonFetch<IAuthenticatedUser>({
+  const response = await commonFetch<IUserLoginResponse>({
     options: {
-      body,
-      method: "POST",
+      reqBody,
+      method: FETCH_METHODS.POST,
     },
-    source: buildSourceString({ fileName: "serviceAuth", method: "loginUser" }),
+    source: { fileName, method: "loginUser" },
     url: API_LOGIN_ROUTE,
   });
+
+  const authenticatedUser: IAuthenticatedUser = {
+    email: response.session.email,
+    emailVerified: new Date(response.session.email_confirmed_at),
+    id: response.id,
+    profile: { ...response.user },
+    token: response.jwt,
+  };
 
   return authenticatedUser;
 }
 
 export async function logoutUser(): Promise<unknown> {
   const data = await commonFetch({
-    options: { method: "POST" },
-    source: buildSourceString({
-      fileName: "serviceAuth",
-      method: "logoutUser",
-    }),
+    options: { method: FETCH_METHODS.POST },
+    source: { fileName, method: "logoutUser" },
     url: API_LOGOUT_ROUTE,
   });
 
@@ -46,19 +51,14 @@ export async function logoutUser(): Promise<unknown> {
 }
 
 export async function registerUser(
-  params: IUserRegisterRequest
-): Promise<IAuthenticatedUser | undefined> {
-  const body = JSON.stringify(params);
-
-  const data = await commonFetch<IAuthenticatedUser>({
+  reqBody: IUserRegisterRequest
+): Promise<unknown> {
+  const data = await commonFetch({
     options: {
-      body,
-      method: "POST",
+      reqBody,
+      method: FETCH_METHODS.POST,
     },
-    source: buildSourceString({
-      fileName: "serviceAuth",
-      method: "registerUser",
-    }),
+    source: { fileName, method: "registerUser" },
     url: API_REGISTER_ROUTE,
   });
 
