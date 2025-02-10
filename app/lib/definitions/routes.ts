@@ -3,6 +3,7 @@ export const LANDING_ROUTE = "/";
 
 //** Auth Routes */
 export const SIGNIN_ROUTE = "/signin";
+export const SIGNIN_EXPIRED_ROUTE = `${SIGNIN_ROUTE}?session=expired`;
 export const SIGNUP_ROUTE = "/signup";
 
 //** Dashboard Routes */

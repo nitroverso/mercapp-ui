@@ -16,7 +16,7 @@ import { ALERT_SEVERITY } from "@/app/lib/definitions/ui";
 
 const HIDE_DURATION_MAP = {
   [ALERT_SEVERITY.ERROR]: null,
-  [ALERT_SEVERITY.INFO]: null,
+  [ALERT_SEVERITY.INFO]: 5000,
   [ALERT_SEVERITY.SUCCESS]: 3000,
   [ALERT_SEVERITY.WARNING]: null,
 };

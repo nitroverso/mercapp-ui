@@ -4,6 +4,7 @@ import { useStore } from "@/app/lib/hooks/useStore";
 // types
 import { ALERT_SEVERITY } from "@/app/lib/definitions/ui";
 import { handleErrorUI } from "@/app/lib/utils/errorHandler";
+import { SIGNIN_EXPIRED_ROUTE } from "@/app/lib/definitions/routes";
 
 const INVALID_TOKEN_TEXT = "Token inválido";
 
@@ -22,9 +23,8 @@ export function useError() {
     );
     if (cleansedError.includes(INVALID_TOKEN_TEXT)) {
       toggleLoading(true);
-      await signOut();
+      await signOut({ redirectTo: SIGNIN_EXPIRED_ROUTE });
       toggleLoading(false);
-      setMessage("Session has expired. Please, sign in!", ALERT_SEVERITY.INFO);
     } else {
       setMessage(cleansedError, ALERT_SEVERITY.ERROR);
     }

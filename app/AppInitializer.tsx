@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 // components
 import LanguageSelector from "@/app/ui/components/LanguageSelector";
 import SnackbarAlert from "@/app/ui/components/Alert";
@@ -20,8 +22,7 @@ interface AppInitializerProps {
 const AppInitializer = ({ children }: AppInitializerProps) => {
   const t = useTranslations("ui");
   const { data: session, status } = useSession();
-
-  const { loadCategories, loadingCategories } = useCategories();
+  const sessionParam = useSearchParams().get("session");
   const {
     auth: { session: storedSession },
     authActions: { setSession },
@@ -29,6 +30,7 @@ const AppInitializer = ({ children }: AppInitializerProps) => {
       uiAlertsActions: { setMessage },
     },
   } = useStore();
+  const { loadCategories, loadingCategories } = useCategories();
 
   const handleUserAuthentication = () => {
     if (status === "authenticated" && session?.user && !storedSession) {
@@ -38,8 +40,13 @@ const AppInitializer = ({ children }: AppInitializerProps) => {
   };
 
   useEffect(() => {
+    if (sessionParam && sessionParam === "expired") {
+      setMessage("Session has expired. Please, sign in!", ALERT_SEVERITY.INFO);
+    }
+  }, [sessionParam]);
+
+  useEffect(() => {
     handleUserAuthentication();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status, session?.user, storedSession]);
 
   useEffect(() => {
@@ -52,7 +59,6 @@ const AppInitializer = ({ children }: AppInitializerProps) => {
     };
 
     if (storedSession) loadInitialData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storedSession]);
 
   return (
