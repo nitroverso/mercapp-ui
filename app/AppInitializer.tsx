@@ -35,6 +35,10 @@ const AppInitializer = ({ children }: AppInitializerProps) => {
   const handleUserAuthentication = () => {
     if (status === "authenticated" && session?.user && !storedSession) {
       setSession(session.user);
+      setMessage(
+        t("welcome", { name: session.user.profile.firstName }),
+        ALERT_SEVERITY.SUCCESS
+      );
     }
     if (status === "unauthenticated") setSession(null);
   };
@@ -51,11 +55,11 @@ const AppInitializer = ({ children }: AppInitializerProps) => {
 
   useEffect(() => {
     const loadInitialData = async () => {
-      await loadCategories();
-      setMessage(
-        t("welcome", { name: storedSession!.profile.firstName }),
-        ALERT_SEVERITY.SUCCESS
-      );
+      try {
+        await loadCategories();
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (error) {}
     };
 
     if (storedSession) loadInitialData();

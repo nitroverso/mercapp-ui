@@ -8,6 +8,11 @@ export type IAddCategoryRequest = {
   name: string;
 };
 
+export type IEditCategoryRequest = {
+  categoryId: string;
+  name: string;
+};
+
 export type IDeleteCategoryRequest = {
   categoryId: string;
 };

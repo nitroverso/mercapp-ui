@@ -6,6 +6,7 @@ import {
   addCategoryService,
   deleteCategoryService,
   getAllCategoriesService,
+  updateCategoryService,
 } from "@/app/lib/services/serviceCategories";
 
 export function useCategories() {
@@ -40,6 +41,20 @@ export function useCategories() {
     }
   };
 
+  const editCategory = async (categoryId: string, name: string) => {
+    try {
+      setLoadingCategories(true);
+      const category = await updateCategoryService({ categoryId, name });
+      setCategories(
+        list.map((item) => (item.id === categoryId ? category : item))
+      );
+      setLoadingCategories(false);
+    } catch (error) {
+      setLoadingCategories(false);
+      processError(error);
+    }
+  };
+
   const deleteCategory = async (categoryId: string) => {
     try {
       setLoadingCategories(true);
@@ -57,6 +72,7 @@ export function useCategories() {
     addCategory,
     categories: list,
     deleteCategory,
+    editCategory,
     loadCategories,
     loadingCategories,
   };

@@ -1,3 +1,5 @@
+import { useState } from "react";
+import clsx from "clsx";
 // components
 import {
   Avatar,
@@ -21,13 +23,16 @@ import TextInput from "@/app/ui/components/form/inputs/TextInput";
 import EmptyState from "@/app/ui/components/Empty";
 // icons
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import CancelIcon from "@mui/icons-material/Cancel";
 import Dns from "@mui/icons-material/Dns";
 import { InputSizes } from "@/app/ui/components/form/inputs/BaseInput";
 
 type ControlBoxItem = { id: string; label: string };
 export type ControlBoxFormT = { itemName: string };
+export type ControlBoxFormEditT = ControlBoxFormT & { itemId: string };
 
 interface ControlBoxProps {
   boxMainHeader: {
@@ -35,8 +40,10 @@ interface ControlBoxProps {
     boxIcon: React.ReactNode;
   };
   boxItemManager: {
-    onSubmit: ({ itemName }: ControlBoxFormT) => void;
-    inputLabel: string;
+    onAdd: (params: ControlBoxFormT) => void;
+    onEdit: (params: ControlBoxFormEditT) => void;
+    addLabel: string;
+    editLabel: string;
   };
   boxItemsList: {
     description: string;
@@ -47,9 +54,11 @@ interface ControlBoxProps {
 
 export default function ControlBox({
   boxMainHeader: { boxIcon, boxTitle },
-  boxItemManager: { onSubmit, inputLabel },
+  boxItemManager: { onAdd, onEdit, addLabel, editLabel },
   boxItemsList: { description, items, onDelete },
 }: ControlBoxProps) {
+  const [selectedItem, setSelectedItem] = useState<ControlBoxItem | null>(null);
+
   const renderHeader = () => {
     return (
       <Box className="p-5 flex items-center">
@@ -68,13 +77,24 @@ export default function ControlBox({
   };
 
   const renderForm = () => {
+    const formLabel = selectedItem ? editLabel : addLabel;
     return (
       <ListItem component="div">
-        <Form<ControlBoxFormT> onSubmit={onSubmit}>
+        <Form<ControlBoxFormT>
+          updatedValues={
+            selectedItem ? { itemName: selectedItem?.label } : undefined
+          }
+          onSubmit={
+            selectedItem
+              ? ({ itemName }) => onEdit({ itemId: selectedItem.id, itemName })
+              : onAdd
+          }
+          onSuccess={() => setSelectedItem(null)}
+        >
           <Box className="flex items-center">
             <TextInput
               isRequired
-              label={inputLabel}
+              label={formLabel}
               name="itemName"
               size={InputSizes.SMALL}
             />
@@ -85,12 +105,24 @@ export default function ControlBox({
               type={ButtonTypes.SUBMIT}
             >
               {/* Control box item manager action tooltip */}
-              <Tooltip title="Add a new category">
-                <AddCircleIcon />
+              <Tooltip title={formLabel}>
+                {selectedItem ? <SyncAltIcon /> : <AddCircleIcon />}
               </Tooltip>
             </Button>
           </Box>
         </Form>
+        {selectedItem && (
+          <Button
+            iconButtonProps={{
+              color: "primary",
+              onClick: () => setSelectedItem(null),
+              size: ButtonSizes.LARGE,
+            }}
+            scope={ButtonScope.ICON}
+          >
+            <CancelIcon />
+          </Button>
+        )}
       </ListItem>
     );
   };
@@ -101,8 +133,7 @@ export default function ControlBox({
         <Box className="flex">
           <Button
             iconButtonProps={{
-              disabled: true,
-              onClick: () => {},
+              onClick: () => setSelectedItem(item),
             }}
             scope={ButtonScope.ICON}
           >
@@ -127,6 +158,7 @@ export default function ControlBox({
           items.map((item) => (
             <ListItem
               key={item.id}
+              className={clsx(selectedItem?.id === item.id && "bg-gray-200")}
               secondaryAction={renderSecondaryActions(item)}
             >
               <ListItemAvatar>

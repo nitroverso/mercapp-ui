@@ -2,17 +2,25 @@
 
 import { useTranslations } from "next-intl";
 // components
-import ControlBox, { ControlBoxFormT } from "@/app/ui/components/ControlBox";
+import ControlBox, {
+  ControlBoxFormEditT,
+  ControlBoxFormT,
+} from "@/app/ui/components/ControlBox";
 // hooks
 import { useCategories } from "@/app/lib/hooks/useCategories";
 
 const Categories = () => {
   const t = useTranslations("settings");
 
-  const { addCategory, categories, deleteCategory } = useCategories();
+  const { addCategory, categories, deleteCategory, editCategory } =
+    useCategories();
 
-  const handleSubmit = async ({ itemName }: ControlBoxFormT) => {
+  const handleAdd = async ({ itemName }: ControlBoxFormT) => {
     await addCategory(itemName);
+  };
+
+  const handleEdit = async ({ itemId, itemName }: ControlBoxFormEditT) => {
+    await editCategory(itemId, itemName);
   };
 
   const handleDelete = async (categoryId: string) => {
@@ -21,7 +29,12 @@ const Categories = () => {
 
   return (
     <ControlBox
-      boxItemManager={{ inputLabel: t("categoryAdd"), onSubmit: handleSubmit }}
+      boxItemManager={{
+        addLabel: t("categoryAdd"),
+        editLabel: t("categoryEdit"),
+        onAdd: handleAdd,
+        onEdit: handleEdit,
+      }}
       boxItemsList={{
         description: t("categoriesDesc"),
         items: categories.map((category) => ({

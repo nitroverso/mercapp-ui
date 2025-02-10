@@ -7,6 +7,7 @@ import { handleErrorUI } from "@/app/lib/utils/errorHandler";
 import { SIGNIN_EXPIRED_ROUTE } from "@/app/lib/definitions/routes";
 
 const INVALID_TOKEN_TEXT = "Token inválido";
+const USER_NOT_FOUND = "Usuario no encontrado";
 
 export function useError() {
   const {
@@ -18,7 +19,11 @@ export function useError() {
 
   const processError = async (error: unknown, origin?: string) => {
     const cleansedError = handleErrorUI(error, origin);
-    if (cleansedError.includes(INVALID_TOKEN_TEXT)) {
+    if (
+      [INVALID_TOKEN_TEXT, USER_NOT_FOUND].some((text) =>
+        cleansedError.includes(text)
+      )
+    ) {
       toggleLoading(true);
       await signOut({ redirectTo: SIGNIN_EXPIRED_ROUTE });
       toggleLoading(false);
