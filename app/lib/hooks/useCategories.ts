@@ -3,9 +3,9 @@ import { useStore } from "@/app/lib/hooks/useStore";
 import { useError } from "@/app/lib/hooks/useError";
 // services
 import {
-  addNewCategory,
-  deleteCategory,
-  getAllCategories,
+  addCategoryService,
+  deleteCategoryService,
+  getAllCategoriesService,
 } from "@/app/lib/services/serviceCategories";
 
 export function useCategories() {
@@ -19,7 +19,7 @@ export function useCategories() {
   const loadCategories = async () => {
     try {
       setLoadingCategories(true);
-      const categories = await getAllCategories();
+      const categories = await getAllCategoriesService();
       setCategories(categories);
       setLoadingCategories(false);
     } catch (error) {
@@ -31,7 +31,7 @@ export function useCategories() {
   const addCategory = async (name: string) => {
     try {
       setLoadingCategories(true);
-      const category = await addNewCategory({ name });
+      const category = await addCategoryService({ name });
       setCategories([...list, ...[category]]);
       setLoadingCategories(false);
     } catch (error) {
@@ -40,10 +40,10 @@ export function useCategories() {
     }
   };
 
-  const deleteTheCategory = async (categoryId: string) => {
+  const deleteCategory = async (categoryId: string) => {
     try {
       setLoadingCategories(true);
-      await deleteCategory({ categoryId });
+      await deleteCategoryService({ categoryId });
       const newList = [...list].filter(({ id }) => id !== categoryId);
       setCategories(newList);
       setLoadingCategories(false);
@@ -56,7 +56,7 @@ export function useCategories() {
   return {
     addCategory,
     categories: list,
-    deleteTheCategory,
+    deleteCategory,
     loadCategories,
     loadingCategories,
   };

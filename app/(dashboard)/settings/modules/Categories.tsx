@@ -9,14 +9,14 @@ import { useCategories } from "@/app/lib/hooks/useCategories";
 const Categories = () => {
   const t = useTranslations("settings");
 
-  const { addCategory, categories, deleteTheCategory } = useCategories();
+  const { addCategory, categories, deleteCategory } = useCategories();
 
   const handleSubmit = async ({ itemName }: ControlBoxFormT) => {
     await addCategory(itemName);
   };
 
   const handleDelete = async (categoryId: string) => {
-    await deleteTheCategory(categoryId);
+    await deleteCategory(categoryId);
   };
 
   return (

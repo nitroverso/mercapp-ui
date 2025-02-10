@@ -16,7 +16,7 @@ import {
 
 const fileName = "serviceCategories";
 
-export async function getAllCategories(): Promise<ICategory[]> {
+export async function getAllCategoriesService(): Promise<ICategory[]> {
   const { data } = await commonFetch<DefaultResponse<ICategory[]>>({
     source: { fileName, method: "getAllCategories" },
     url: API_CATEGORIES_ROUTE,
@@ -24,7 +24,7 @@ export async function getAllCategories(): Promise<ICategory[]> {
   return data;
 }
 
-export async function addNewCategory(
+export async function addCategoryService(
   reqBody: IAddCategoryRequest
 ): Promise<ICategory> {
   const { data } = await commonFetch<DefaultResponse<ICategory>>({
@@ -35,7 +35,7 @@ export async function addNewCategory(
   return data;
 }
 
-export async function deleteCategory(
+export async function deleteCategoryService(
   reqBody: IDeleteCategoryRequest
 ): Promise<null> {
   await commonFetch<Response>({
