@@ -1,12 +1,13 @@
 // components
 import Button, { ButtonScope, ButtonTypes } from "@/app/ui/components/Button";
-import Input, { InputSizes } from "@/app/ui/components/form/inputs/BaseInput";
+import { InputSizes } from "@/app/ui/components/form/inputs/BaseInput";
 import { Divider, Paper } from "@mui/material";
 // i18n
 import { useTranslations } from "next-intl";
 // icons
 import SearchIcon from "@mui/icons-material/Search";
 import TuneIcon from "@mui/icons-material/Tune";
+import TextInput from "@/app/ui/components/form/inputs/TextInput";
 
 export default function Search() {
   const t = useTranslations("dashboard");
@@ -16,7 +17,7 @@ export default function Search() {
       // eslint-disable-next-line sort-keys
       sx={{ p: "2px 4px", display: "flex", alignItems: "center" }}
     >
-      <Input
+      <TextInput // Change this by form
         isRequired
         label={t("search")}
         name="name"

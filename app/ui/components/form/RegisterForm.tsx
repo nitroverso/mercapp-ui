@@ -40,6 +40,7 @@ export default function RegisterForm() {
       setMessage(t("userCreated"), ALERT_SEVERITY.SUCCESS);
       toggleLoading(false);
       router.push(SIGNIN_ROUTE);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toggleLoading(false);
     }

@@ -32,8 +32,8 @@ export default function TopBar() {
   } = useStore();
 
   const ROUTE_MAPS_TO_MENU_ITEMS_TITLES = {
-    [EVENTS_ROUTE]: t("home"),
     [CUPBOARD_ROUTE]: t("cupboard"),
+    [EVENTS_ROUTE]: t("home"),
     [NOTIFICATIONS_ROUTE]: t("notifications"),
     [PROFILE_ROUTE]: t("profile"),
     [SETTINGS_ROUTE]: t("settings"),
