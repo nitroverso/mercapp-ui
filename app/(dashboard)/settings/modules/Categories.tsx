@@ -4,41 +4,27 @@ import { useTranslations } from "next-intl";
 // components
 import ControlBox, { ControlBoxFormT } from "@/app/ui/components/ControlBox";
 // hooks
-import { useStore } from "@/app/lib/hooks/useStore";
-// services
-import {
-  addNewCategory,
-  deleteCategory,
-} from "@/app/lib/services/serviceCategories";
+import { useCategories } from "@/app/lib/hooks/useCategories";
 
 const Categories = () => {
   const t = useTranslations("settings");
-  const {
-    categories: { list },
-    categoriesActions: { setLoadingCategories, setCategories },
-  } = useStore();
+
+  const { addCategory, categories, deleteTheCategory } = useCategories();
 
   const handleSubmit = async ({ itemName }: ControlBoxFormT) => {
-    setLoadingCategories(true);
-    const category = await addNewCategory({ name: itemName });
-    setCategories([...list, ...[category]]);
-    setLoadingCategories(false);
+    await addCategory(itemName);
   };
 
   const handleDelete = async (categoryId: string) => {
-    setLoadingCategories(true);
-    await deleteCategory({ categoryId });
-    const newList = [...list].filter(({ id }) => id !== categoryId);
-    setCategories(newList);
-    setLoadingCategories(false);
+    await deleteTheCategory(categoryId);
   };
 
   return (
     <ControlBox
-      boxItemManager={{ handleSubmit, inputLabel: t("categoryAdd") }}
+      boxItemManager={{ inputLabel: t("categoryAdd"), onSubmit: handleSubmit }}
       boxItemsList={{
         description: t("categoriesDesc"),
-        items: list.map((category) => ({
+        items: categories.map((category) => ({
           id: category.id,
           label: category.name,
         })),

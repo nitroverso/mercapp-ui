@@ -35,7 +35,7 @@ interface ControlBoxProps {
     boxIcon: React.ReactNode;
   };
   boxItemManager: {
-    handleSubmit: ({ itemName }: ControlBoxFormT) => void;
+    onSubmit: ({ itemName }: ControlBoxFormT) => void;
     inputLabel: string;
   };
   boxItemsList: {
@@ -47,7 +47,7 @@ interface ControlBoxProps {
 
 export default function ControlBox({
   boxMainHeader: { boxIcon, boxTitle },
-  boxItemManager: { handleSubmit, inputLabel },
+  boxItemManager: { onSubmit, inputLabel },
   boxItemsList: { description, items, onDelete },
 }: ControlBoxProps) {
   const renderHeader = () => {
@@ -70,7 +70,7 @@ export default function ControlBox({
   const renderForm = () => {
     return (
       <ListItem component="div">
-        <Form<ControlBoxFormT> onSubmit={handleSubmit}>
+        <Form<ControlBoxFormT> onSubmit={onSubmit}>
           <Box className="flex items-center">
             <TextInput
               isRequired

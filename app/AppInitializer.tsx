@@ -10,6 +10,8 @@ import BackdropStatus from "@/app/ui/components/BackdropStatus";
 // hooks
 import { useStore } from "@/app/lib/hooks/useStore";
 import { useCategories } from "@/app/lib/hooks/useCategories";
+// types
+import { ALERT_SEVERITY } from "@/app/lib/definitions/ui";
 
 interface AppInitializerProps {
   children: React.ReactNode;
@@ -19,11 +21,13 @@ const AppInitializer = ({ children }: AppInitializerProps) => {
   const t = useTranslations("ui");
   const { data: session, status } = useSession();
 
-  const { loadCategories } = useCategories();
+  const { loadCategories, loadingCategories } = useCategories();
   const {
     auth: { session: storedSession },
     authActions: { setSession },
-    categories: { loadingCategories },
+    uiActions: {
+      uiAlertsActions: { setMessage },
+    },
   } = useStore();
 
   const handleUserAuthentication = () => {
@@ -39,9 +43,15 @@ const AppInitializer = ({ children }: AppInitializerProps) => {
   }, [status, session?.user, storedSession]);
 
   useEffect(() => {
-    if (storedSession) {
-      loadCategories();
-    }
+    const loadInitialData = async () => {
+      await loadCategories();
+      setMessage(
+        t("welcome", { name: storedSession!.profile.firstName }),
+        ALERT_SEVERITY.SUCCESS
+      );
+    };
+
+    if (storedSession) loadInitialData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storedSession]);
 
