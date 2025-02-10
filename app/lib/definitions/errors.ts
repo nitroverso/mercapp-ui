@@ -19,7 +19,6 @@ export type IErrorHandlerAPIParams = {
 export type IErrorParsed = {
   cause?: string | unknown;
   code: number;
-  message: string;
   name: string;
   sourceDescription: string;
 };

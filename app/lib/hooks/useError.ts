@@ -16,11 +16,8 @@ export function useError() {
     },
   } = useStore();
 
-  const processError = async (error: unknown) => {
-    const cleansedError = handleErrorUI(
-      error,
-      "Error when loading categories."
-    );
+  const processError = async (error: unknown, origin?: string) => {
+    const cleansedError = handleErrorUI(error, origin);
     if (cleansedError.includes(INVALID_TOKEN_TEXT)) {
       toggleLoading(true);
       await signOut({ redirectTo: SIGNIN_EXPIRED_ROUTE });
