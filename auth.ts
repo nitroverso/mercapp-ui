@@ -67,7 +67,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
-  trustHost: true,
   // eslint-disable-next-line sort-keys
   callbacks: {
     async jwt({ token, user }) {
