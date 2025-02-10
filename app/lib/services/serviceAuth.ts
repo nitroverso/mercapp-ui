@@ -22,8 +22,8 @@ export async function loginUser(
 ): Promise<IAuthenticatedUser | undefined> {
   const response = await commonFetch<IUserLoginResponse>({
     options: {
-      reqBody,
       method: FETCH_METHODS.POST,
+      reqBody,
     },
     source: { fileName, method: "loginUser" },
     url: API_LOGIN_ROUTE,
@@ -55,8 +55,8 @@ export async function registerUser(
 ): Promise<unknown> {
   const data = await commonFetch({
     options: {
-      reqBody,
       method: FETCH_METHODS.POST,
+      reqBody,
     },
     source: { fileName, method: "registerUser" },
     url: API_REGISTER_ROUTE,

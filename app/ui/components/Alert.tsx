@@ -11,13 +11,22 @@ import {
 } from "@mui/material";
 // hooks
 import { useStore } from "@/app/lib/hooks/useStore";
+// types
+import { ALERT_SEVERITY } from "@/app/lib/definitions/ui";
+
+const HIDE_DURATION_MAP = {
+  [ALERT_SEVERITY.ERROR]: null,
+  [ALERT_SEVERITY.INFO]: null,
+  [ALERT_SEVERITY.SUCCESS]: 3000,
+  [ALERT_SEVERITY.WARNING]: null,
+};
 
 const SnackbarAlert = () => {
   const t = useTranslations("ui");
   const {
-    uiAlerts: { message },
+    uiAlerts: { message, severity },
     uiActions: {
-      uiAlertsActions: { setMessage },
+      uiAlertsActions: { clearMessage },
     },
   } = useStore();
 
@@ -33,20 +42,22 @@ const SnackbarAlert = () => {
   ) => {
     if (reason === "clickaway") return;
     setShowAlert(false);
-    setMessage("");
+    setTimeout(() => clearMessage(), 1000);
   };
 
   return (
     <Snackbar
       anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
-      autoHideDuration={3000}
+      autoHideDuration={HIDE_DURATION_MAP[severity]}
       open={showAlert}
       onClose={handleClose}
     >
-      <Alert severity="success" onClose={handleClose}>
-        <AlertTitle>{t("success")}</AlertTitle>
-        {message}
-      </Alert>
+      {message ? (
+        <Alert severity={severity} onClose={handleClose}>
+          <AlertTitle>{t(severity)}</AlertTitle>
+          {message}
+        </Alert>
+      ) : undefined}
     </Snackbar>
   );
 };

@@ -28,7 +28,7 @@ export async function addNewCategory(
   reqBody: IAddCategoryRequest
 ): Promise<ICategory> {
   const { data } = await commonFetch<DefaultResponse<ICategory>>({
-    options: { reqBody, method: FETCH_METHODS.POST },
+    options: { method: FETCH_METHODS.POST, reqBody },
     source: { fileName, method: "addNewCategory" },
     url: API_CATEGORIES_ROUTE,
   });

@@ -1,6 +1,7 @@
 {
   "ui": {
     "success": "¡Genial!",
+    "error": "¡Uy!",
     "welcome": "Bienvenid@ de nuevo a Mercapp, {name}!",
     "coming": "Muy Pronto",
     "comingSoon": "Estamos trabajando duro para lanzar algo increíble. Está atento!",

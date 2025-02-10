@@ -19,6 +19,8 @@ import { registerUser } from "@/app/lib/services/serviceAuth";
 // types
 import { IUserRegisterRequest } from "@/app/lib/definitions/user";
 import { SIGNIN_ROUTE } from "@/app/lib/definitions/routes";
+// types
+import { ALERT_SEVERITY } from "@/app/lib/definitions/ui";
 
 export default function RegisterForm() {
   const t = useTranslations("auth");
@@ -33,15 +35,14 @@ export default function RegisterForm() {
 
   const handleFormSubmit = async (data: IUserRegisterRequest) => {
     toggleLoading(true);
-    registerUser(data)
-      .then(() => {
-        setMessage(t("userCreated"));
-        toggleLoading(false);
-        router.push(SIGNIN_ROUTE);
-      })
-      .catch(() => {
-        toggleLoading(false);
-      });
+    try {
+      await registerUser(data);
+      setMessage(t("userCreated"), ALERT_SEVERITY.SUCCESS);
+      toggleLoading(false);
+      router.push(SIGNIN_ROUTE);
+    } catch (error) {
+      toggleLoading(false);
+    }
   };
 
   return (

@@ -16,5 +16,15 @@ export const handleErrorAPI = ({
     name: isTypeOfError ? error.name : "Unknown error",
     sourceDescription: `This error happens in ${fileName} / ${method}`,
   };
-  return parsedError;
+  return JSON.stringify(parsedError);
+};
+
+export const handleErrorUI = (
+  error: unknown,
+  extraDescription: string = ""
+) => {
+  const { code, message, name, sourceDescription, cause }: IErrorParsed =
+    JSON.parse((error as Error).message);
+  const cleansedError = `Snag error: We hit one ${name} with code ${code}. ${sourceDescription} and we have identified the cause as: ${cause} - ${message}.`;
+  return `${extraDescription} ${cleansedError}`;
 };

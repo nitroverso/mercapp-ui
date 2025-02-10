@@ -1,8 +1,11 @@
 import { StateCreator } from "zustand";
+// types
+import { ALERT_SEVERITY } from "@/app/lib/definitions/ui";
 
 /** *******  UI Slice contexts interface definition ******* */
 interface AlertContext {
   message: string;
+  severity: ALERT_SEVERITY;
 }
 
 interface NavbarContext {
@@ -13,7 +16,8 @@ interface NavbarContext {
 /** *******  UI Slice actions interface definition ******* */
 interface UIActions {
   uiAlertsActions: {
-    setMessage: (message: string) => void;
+    clearMessage: () => void;
+    setMessage: (message: string, severity: ALERT_SEVERITY) => void;
   };
   uiNavbarActions: {
     toggleNavbar: () => void;
@@ -30,6 +34,7 @@ export interface UISlice {
 export const createUISlice: StateCreator<UISlice> = (set) => ({
   uiAlerts: {
     message: "",
+    severity: ALERT_SEVERITY.INFO,
   },
   uiNavbar: {
     isOpen: false,
@@ -37,11 +42,20 @@ export const createUISlice: StateCreator<UISlice> = (set) => ({
   // eslint-disable-next-line sort-keys
   uiActions: {
     uiAlertsActions: {
-      setMessage: (message: string) =>
+      clearMessage: () =>
+        set((state) => ({
+          uiAlerts: {
+            ...state.uiAlerts,
+            message: "",
+            severity: ALERT_SEVERITY.INFO,
+          },
+        })),
+      setMessage: (message, severity) =>
         set((state) => ({
           uiAlerts: {
             ...state.uiAlerts,
             message,
+            severity,
           },
         })),
     },
