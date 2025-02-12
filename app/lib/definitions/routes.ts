@@ -18,6 +18,7 @@ export const API_LOGIN_ROUTE = "/auth/login";
 export const API_LOGOUT_ROUTE = "/auth/logout";
 export const API_REGISTER_ROUTE = "/auth/register";
 export const API_CATEGORIES_ROUTE = "/categories";
+export const API_PRODUCTS_ROUTE = "/products";
 
 //** API Internal routes */
 
