@@ -38,6 +38,11 @@ export default function TopBar() {
     [PROFILE_ROUTE]: t("profile"),
     [SETTINGS_ROUTE]: t("settings"),
   };
+  const ROUTE_WITH_NO_SEARCH = [PROFILE_ROUTE, SETTINGS_ROUTE];
+  const ROUTE_WITH_ADD = [CUPBOARD_ROUTE, EVENTS_ROUTE];
+  const currentRoute = pathname as keyof typeof ROUTE_MAPS_TO_MENU_ITEMS_TITLES;
+  const showSearch = !ROUTE_WITH_NO_SEARCH.includes(currentRoute);
+  const showAddAction = ROUTE_WITH_ADD.includes(currentRoute);
 
   return (
     <>
@@ -59,27 +64,33 @@ export default function TopBar() {
               noWrap
               component="div"
               // eslint-disable-next-line sort-keys
-              sx={{ display: { xs: "none", sm: "block" } }}
+              sx={{
+                display: {
+                  xs: `${showSearch ? "none" : "block"}`,
+                  sm: "block",
+                },
+              }}
               variant="h6"
             >
-              {
-                ROUTE_MAPS_TO_MENU_ITEMS_TITLES[
-                  pathname as keyof typeof ROUTE_MAPS_TO_MENU_ITEMS_TITLES
-                ]
-              }
+              {ROUTE_MAPS_TO_MENU_ITEMS_TITLES[currentRoute]}
             </Typography>
           </Box>
-          <Box className="w-fit">
-            <Form onSubmit={() => ""}>
-              <Search />
-            </Form>
+
+          <Box className="w-fit flex items-center justify-between gap-1">
+            {showSearch && (
+              <Form onSubmit={() => ""}>
+                <Search />
+              </Form>
+            )}
+            {showAddAction && (
+              <Button
+                iconButtonProps={{ color: "primary", size: ButtonSizes.LARGE }}
+                scope={ButtonScope.ICON}
+              >
+                <AddCircleIcon />
+              </Button>
+            )}
           </Box>
-          <Button
-            iconButtonProps={{ color: "primary", size: ButtonSizes.LARGE }}
-            scope={ButtonScope.ICON}
-          >
-            <AddCircleIcon />
-          </Button>
         </Toolbar>
       </AppBar>
     </>
