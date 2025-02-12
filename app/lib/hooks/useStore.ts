@@ -6,13 +6,18 @@ import {
   CategoriesSlice,
   createCategoriesSlice,
 } from "@/app/lib/store/CategoriesSlice";
+import {
+  createProductsSlice,
+  ProductsSlice,
+} from "@/app/lib/store/ProductsSlice";
 
-type Store = UISlice & AuthSlice & CategoriesSlice;
+type Store = UISlice & AuthSlice & CategoriesSlice & ProductsSlice;
 
 export const useStore = create<Store>()(
   devtools((...a) => ({
     ...createUISlice(...a),
     ...createAuthSlice(...a),
     ...createCategoriesSlice(...a),
+    ...createProductsSlice(...a),
   }))
 );
