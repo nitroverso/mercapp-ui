@@ -13,14 +13,20 @@ import {
   IUserRegisterRequest,
 } from "@/app/lib/definitions/user";
 // utils
-import { commonFetch, FETCH_METHODS } from "@/app/lib/utils/common-fetch";
+import {
+  commonFetch,
+  DefaultResponse,
+  FETCH_METHODS,
+} from "@/app/lib/utils/common-fetch";
 
 const fileName = "serviceAuth";
 
 export async function loginUser(
   reqBody: IUserLoginRequest
 ): Promise<IAuthenticatedUser | undefined> {
-  const response = await commonFetch<IUserLoginResponse>({
+  const { data: response } = await commonFetch<
+    DefaultResponse<IUserLoginResponse>
+  >({
     options: {
       method: FETCH_METHODS.POST,
       reqBody,
@@ -41,19 +47,19 @@ export async function loginUser(
 }
 
 export async function logoutUser(): Promise<unknown> {
-  const data = await commonFetch({
+  await commonFetch({
     options: { method: FETCH_METHODS.POST },
     source: { fileName, method: "logoutUser" },
     url: API_LOGOUT_ROUTE,
   });
 
-  return data;
+  return null;
 }
 
 export async function registerUser(
   reqBody: IUserRegisterRequest
 ): Promise<unknown> {
-  const data = await commonFetch({
+  await commonFetch({
     options: {
       method: FETCH_METHODS.POST,
       reqBody,
@@ -62,5 +68,5 @@ export async function registerUser(
     url: API_REGISTER_ROUTE,
   });
 
-  return data;
+  return null;
 }

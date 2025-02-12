@@ -23,7 +23,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   events: {
     signOut: async () => {
       await logoutUser();
-      console.info("Usuario cerró sesión"); // TODO: Use a events handler to show a toast message or similar
     },
   },
   pages: {
