@@ -67,6 +67,7 @@ export default function TopBar() {
               sx={{
                 display: {
                   xs: `${showSearch ? "none" : "block"}`,
+                  // eslint-disable-next-line sort-keys
                   sm: "block",
                 },
               }}
