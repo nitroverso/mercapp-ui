@@ -12,6 +12,7 @@ import BackdropStatus from "@/app/ui/components/BackdropStatus";
 // hooks
 import { useStore } from "@/app/lib/hooks/useStore";
 import { useCategories } from "@/app/lib/hooks/useCategories";
+import { useUnits } from "@/app/lib/hooks/useUnits";
 // types
 import { ALERT_SEVERITY } from "@/app/lib/definitions/ui";
 
@@ -31,6 +32,7 @@ const AppInitializer = ({ children }: AppInitializerProps) => {
     },
   } = useStore();
   const { loadCategories, loadingCategories } = useCategories();
+  const { loadUnits, loadingUnits } = useUnits();
 
   const handleUserAuthentication = () => {
     if (status === "authenticated" && session?.user && !storedSession) {
@@ -57,6 +59,7 @@ const AppInitializer = ({ children }: AppInitializerProps) => {
     const loadInitialData = async () => {
       try {
         await loadCategories();
+        await loadUnits();
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {}
@@ -65,9 +68,11 @@ const AppInitializer = ({ children }: AppInitializerProps) => {
     if (storedSession) loadInitialData();
   }, [storedSession]);
 
+  const showLoader = loadingCategories || loadingUnits;
+
   return (
     <>
-      <BackdropStatus open={loadingCategories} status={t("loadingApp")} />
+      <BackdropStatus open={showLoader} status={t("loadingApp")} />
       <LanguageSelector />
       <SnackbarAlert />
       {children}
