@@ -43,6 +43,9 @@
     "logout": "Logout",
     "signingOut": "Signing user out ..."
   },
+  "products": {
+    "amount": "Amount"
+  },
   "settings": {
     "categories": "Categories",
     "categoriesDesc": "Mercapp categories are listed below",

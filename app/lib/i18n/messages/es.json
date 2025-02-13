@@ -43,6 +43,9 @@
     "logout": "Salir",
     "signingOut": "Cerrando sesión ..."
   },
+  "products": {
+    "amount": "Cantidad"
+  },
   "settings": {
     "categories": "Categorías",
     "categoriesDesc": "Las categorías de Mercapp son las siguientes",

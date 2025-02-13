@@ -7,6 +7,7 @@ import { LinearProgress } from "@mui/material";
 // hooks
 import { useProducts } from "@/app/lib/hooks/useProducts";
 import { useCategories } from "@/app/lib/hooks/useCategories";
+import { useUnits } from "@/app/lib/hooks/useUnits";
 
 const ProductsList = () => {
   const {
@@ -16,7 +17,8 @@ const ProductsList = () => {
     groupedProducts,
     getGroupedProducts,
   } = useProducts();
-  const { categories } = useCategories();
+  const { categories, loadingCategories } = useCategories();
+  const { units, loadingUnits } = useUnits();
 
   useEffect(() => {
     const loadProductsList = async () => {
@@ -27,15 +29,17 @@ const ProductsList = () => {
     };
 
     if (products.length) {
-      if (categories.length) getGroupedProducts();
+      if (categories.length && units.length) getGroupedProducts();
     } else {
       loadProductsList();
     }
-  }, [products.length, categories.length]);
+  }, [products.length, categories.length, units.length]);
+
+  const isLoading = loadingProducts || loadingCategories || loadingUnits;
 
   return (
     <>
-      {loadingProducts ? (
+      {isLoading ? (
         <LinearProgress />
       ) : (
         groupedProducts.map(({ id, name, products }) => {

@@ -1,4 +1,5 @@
 import { ICategory } from "@/app/lib/definitions/categories";
+import { IUnit } from "@/app/lib/definitions/units";
 
 export type IProduct = {
   id: string;
@@ -8,8 +9,10 @@ export type IProduct = {
   quantity: number;
 };
 
+export type IProductWithUnit = IProduct & { unit: IUnit };
+
 export type IGroupedProducts = ICategory & {
-  products: IProduct[];
+  products: IProductWithUnit[];
 };
 
 //** ******* Products Requests ******* */

@@ -26,7 +26,7 @@ const Card = ({
         alt={`Card image for ${title}`}
         component="img"
         image={image}
-        sx={{ width: 150 }}
+        sx={{ width: "30%" }}
       />
       <Box className="flex flex-col">
         <CardContent sx={{ flex: "1 0 auto" }}>

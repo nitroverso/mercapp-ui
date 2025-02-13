@@ -1,8 +1,8 @@
-import { useState } from "react";
 // hooks
 import { useStore } from "@/app/lib/hooks/useStore";
 import { useError } from "@/app/lib/hooks/useError";
 import { useCategories } from "@/app/lib/hooks/useCategories";
+import { useUnits } from "@/app/lib/hooks/useUnits";
 // services
 import {
   addProductService,
@@ -15,13 +15,11 @@ import { IGroupedProducts } from "@/app/lib/definitions/products";
 
 export function useProducts() {
   const { categories } = useCategories();
+  const { units } = useUnits();
   const {
-    products: { list: products, loadingProducts },
-    productsActions: { setProducts, setLoadingProducts },
+    products: { groupedList: groupedProducts, list: products, loadingProducts },
+    productsActions: { setProducts, setLoadingProducts, setGroupedProducts },
   } = useStore();
-  const [groupedProducts, setGroupedProducts] = useState<IGroupedProducts[]>(
-    []
-  );
 
   const { processError } = useError();
 
@@ -84,7 +82,10 @@ export function useProducts() {
     products.forEach((product) => {
       const category = categoriesMap[product.category_id];
       if (category) {
-        category.products.push(product);
+        category.products.push({
+          ...product,
+          unit: units.find((unit) => unit.id === product.unit_id)!,
+        });
       }
     });
 
