@@ -26,7 +26,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Dashboard page main content */}
       <Grid container component="section" flexDirection="column" size="grow">
         <TopBar />
-        <Grid className="p-5" size="grow">
+        <Grid className="p-5 overflow-auto" size="grow">
           {children}
         </Grid>
       </Grid>

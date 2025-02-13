@@ -1,6 +1,5 @@
-// components
-import ComingSoon from "@/app/ui/components/ComingSoon";
+import ProductsList from "@/app/(dashboard)/cupboard/modules/ProductsList";
 
 export default async function Page() {
-  return <ComingSoon />;
+  return <ProductsList />;
 }

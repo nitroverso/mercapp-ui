@@ -6,9 +6,10 @@ import { MoodBad as MoodBadIcon } from "@mui/icons-material";
 
 interface EmptyStateProps {
   message?: string;
+  hideIcon?: boolean;
 }
 
-const EmptyState: React.FC<EmptyStateProps> = ({ message }) => {
+const EmptyState: React.FC<EmptyStateProps> = ({ hideIcon, message }) => {
   const t = useTranslations("ui");
 
   return (
@@ -23,7 +24,9 @@ const EmptyState: React.FC<EmptyStateProps> = ({ message }) => {
         textAlign: "center",
       }}
     >
-      <MoodBadIcon sx={{ color: "text.secondary", fontSize: 64, mb: 2 }} />
+      {!hideIcon && (
+        <MoodBadIcon sx={{ color: "text.secondary", fontSize: 64, mb: 2 }} />
+      )}
       <Typography gutterBottom color="text.secondary" variant="h6">
         {message ?? t("empty")}
       </Typography>

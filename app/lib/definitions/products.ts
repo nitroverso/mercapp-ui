@@ -1,9 +1,15 @@
+import { ICategory } from "@/app/lib/definitions/categories";
+
 export type IProduct = {
   id: string;
   name: string;
   category_id: string;
   unit_id: string;
   quantity: number;
+};
+
+export type IGroupedProducts = ICategory & {
+  products: IProduct[];
 };
 
 //** ******* Products Requests ******* */
