@@ -56,6 +56,7 @@ const Form = <T extends FieldValues>({
     } else {
       methods.reset();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(updatedValues)]);
 
   return (

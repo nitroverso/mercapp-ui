@@ -39,7 +39,7 @@ export function useProducts() {
     try {
       setLoadingProducts(true);
       const product = await addProductService({ name });
-      setProducts([...list, ...[product]]);
+      setProducts([...products, ...[product]]);
       setLoadingProducts(false);
     } catch (error) {
       setLoadingProducts(false);
@@ -50,8 +50,10 @@ export function useProducts() {
   const editProduct = async (productId: string, name: string) => {
     try {
       setLoadingProducts(true);
-      const product = await updateProductService({ productId, name });
-      setProducts(list.map((item) => (item.id === productId ? product : item)));
+      const product = await updateProductService({ name, productId });
+      setProducts(
+        products.map((item) => (item.id === productId ? product : item))
+      );
       setLoadingProducts(false);
     } catch (error) {
       setLoadingProducts(false);
@@ -63,7 +65,7 @@ export function useProducts() {
     try {
       setLoadingProducts(true);
       await deleteProductService({ productId });
-      const newList = [...list].filter(({ id }) => id !== productId);
+      const newList = [...products].filter(({ id }) => id !== productId);
       setProducts(newList);
       setLoadingProducts(false);
     } catch (error) {
@@ -94,12 +96,12 @@ export function useProducts() {
 
   return {
     addProduct,
-    products,
     deleteProduct,
     editProduct,
+    getGroupedProducts,
+    groupedProducts,
     loadProducts,
     loadingProducts,
-    groupedProducts,
-    getGroupedProducts,
+    products,
   };
 }

@@ -32,8 +32,8 @@ const ProductsGroup = ({ categoryName, products }: ProductsGroupProps) => {
           {products.map(({ id, name, quantity, unit }) => (
             <Grid key={id} size={{ xs: 1 }}>
               <Card
-                title={name}
                 subTitle={`${t("amount")}: ${quantity}${getUnitLabel(unit)}`}
+                title={name}
               />
             </Grid>
           ))}

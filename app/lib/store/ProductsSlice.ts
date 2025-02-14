@@ -35,13 +35,13 @@ export const createProductsSlice: StateCreator<
       set((state) => ({
         products: { ...state.products, groupedList: groupedProducts },
       })),
-    setProducts: (productsList) =>
-      set((state) => ({
-        products: { ...state.products, list: productsList },
-      })),
     setLoadingProducts: (isLoading) =>
       set((state) => ({
         products: { ...state.products, loadingProducts: isLoading },
+      })),
+    setProducts: (productsList) =>
+      set((state) => ({
+        products: { ...state.products, list: productsList },
       })),
   },
 });

@@ -33,6 +33,7 @@ const ProductsList = () => {
     } else {
       loadProductsList();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [products.length, categories.length, units.length]);
 
   const isLoading = loadingProducts || loadingCategories || loadingUnits;

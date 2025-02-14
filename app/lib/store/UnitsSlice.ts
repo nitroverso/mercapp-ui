@@ -26,13 +26,13 @@ export const createUnitsSlice: StateCreator<UnitsSlice, [], [], UnitsSlice> = (
 ) => ({
   units: { list: [], loadingUnits: false },
   unitsActions: {
-    setUnits: (unitsList) =>
-      set((state) => ({
-        units: { ...state.units, list: unitsList },
-      })),
     setLoadingUnits: (isLoading) =>
       set((state) => ({
         units: { ...state.units, loadingUnits: isLoading },
+      })),
+    setUnits: (unitsList) =>
+      set((state) => ({
+        units: { ...state.units, list: unitsList },
       })),
   },
 });

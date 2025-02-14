@@ -25,8 +25,8 @@ export function useUnits() {
   };
 
   return {
-    units: list,
     loadUnits,
     loadingUnits,
+    units: list,
   };
 }
