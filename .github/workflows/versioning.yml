@@ -17,8 +17,6 @@ jobs:
       - run: git config user.email "$mailto:GITHUB_ACTOR@users.noreply.github.com"
       - run: git config user.name "$GITHUB_ACTOR"
       - run: npm version patch
-      - run: git add package.json package-lock.json
-      - run: git commit -m "chore: bump patch version"
       - run: git push "https://$GITHUB_ACTOR:${{ secrets.BYPASS_PUSH }}@github.com/$GITHUB_REPOSITORY.git"
   bump-minor:
     if: ${{ (github.event.pull_request.merged == true) && (contains(github.event.pull_request.labels.*.name, 'bump-minor')) }}
@@ -30,8 +28,6 @@ jobs:
       - run: git config user.email "$mailto:GITHUB_ACTOR@users.noreply.github.com"
       - run: git config user.name "$GITHUB_ACTOR"
       - run: npm version minor
-      - run: git add package.json package-lock.json
-      - run: git commit -m "chore: bump minor version"
       - run: git push "https://$GITHUB_ACTOR:${{ secrets.BYPASS_PUSH }}@github.com/$GITHUB_REPOSITORY.git"
   bump-major:
     if: ${{ (github.event.pull_request.merged == true) && (contains(github.event.pull_request.labels.*.name, 'bump-major')) }}
@@ -43,6 +39,4 @@ jobs:
       - run: git config user.email "$mailto:GITHUB_ACTOR@users.noreply.github.com"
       - run: git config user.name "$GITHUB_ACTOR"
       - run: npm version major
-      - run: git add package.json package-lock.json
-      - run: git commit -m "chore: bump major version"
       - run: git push "https://$GITHUB_ACTOR:${{ secrets.BYPASS_PUSH }}@github.com/$GITHUB_REPOSITORY.git"
