@@ -177,8 +177,8 @@ export default function ControlBox({
   };
 
   return (
-    <Box className="flex">
-      <Paper elevation={0} sx={{ minWidth: 256, width: 400 }}>
+    <Box className="flex order-solid border-2 border-gray-200 w-fit">
+      <Paper className="b" elevation={0} sx={{ minWidth: 256, width: 400 }}>
         <List component="nav">
           {renderHeader()}
           <Divider />

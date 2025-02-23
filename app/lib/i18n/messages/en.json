@@ -32,10 +32,13 @@
   "form": {
     "required": "This field is required",
     "emailValid": "Invalid email address",
-    "passwordLength": "Password must be at least 6 characters long"
+    "passwordLength": "Password must be at least 6 characters long",
+    "save": "Save",
+    "cancel": "Cancel"
   },
   "navBar": {
     "cupboard": "Cupboard",
+    "cupboardAdd": "Add product",
     "home": "Home",
     "notifications": "Notifications",
     "profile": "Profile",
@@ -44,7 +47,10 @@
     "signingOut": "Signing user out ..."
   },
   "products": {
-    "amount": "Amount"
+    "amount": "Amount",
+    "name": "Product name",
+    "unit": "Unit of measurement",
+    "category": "Product category"
   },
   "settings": {
     "categories": "Categories",
