@@ -12,7 +12,7 @@ import {
 } from "@/app/lib/services/serviceProducts";
 // types
 import {
-  IAddProductRequest,
+  IProductRequest,
   IGroupedProducts,
 } from "@/app/lib/definitions/products";
 
@@ -38,7 +38,7 @@ export function useProducts() {
     }
   };
 
-  const addProduct = async (body: IAddProductRequest) => {
+  const addProduct = async (body: IProductRequest) => {
     try {
       setLoadingProducts(true);
       const product = await addProductService(body);
@@ -51,14 +51,15 @@ export function useProducts() {
     }
   };
 
-  const editProduct = async (productId: string, name: string) => {
+  const editProduct = async (body: IProductRequest) => {
     try {
       setLoadingProducts(true);
-      const product = await updateProductService({ name, productId });
+      const product = await updateProductService(body);
       setProducts(
-        products.map((item) => (item.id === productId ? product : item))
+        products.map((item) => (item.id === body.id ? product : item))
       );
       setLoadingProducts(false);
+      return product;
     } catch (error) {
       setLoadingProducts(false);
       processError(error);

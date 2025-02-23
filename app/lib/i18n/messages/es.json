@@ -7,7 +7,9 @@
     "coming": "Muy Pronto",
     "comingSoon": "Estamos trabajando duro para lanzar algo increíble. Está atento!",
     "loadingApp": "Cargando datos de aplicación ...",
-    "empty": "Ups, no hay nada por aquí!"
+    "empty": "Ups, no hay nada por aquí!",
+    "notFound": "Recurso no encontrado!",
+    "expired": "La sesión ha expirado. ¡Por favor, inicie sesión!"
   },
   "auth": {
     "signIn": "Inicio de sesión",
@@ -33,12 +35,15 @@
     "required": "Este campo es requerido",
     "emailValid": "Correo inválido",
     "passwordLength": "La contraseña debe ser al menos de 6 letras",
+    "edit": "Editar",
     "save": "Guardar",
+    "ok": "Aceptar",
     "cancel": "Cancelar"
   },
   "navBar": {
     "cupboard": "Alacena",
     "cupboardAdd": "Añadir producto",
+    "cupboardEdit": "Editar producto",
     "home": "Inicio",
     "notifications": "Notificaciones",
     "profile": "Perfil",
@@ -50,7 +55,9 @@
     "amount": "Cantidad",
     "name": "Nombre del producto",
     "unit": "Unidad de medida",
-    "category": "Categoría del producto"
+    "category": "Categoría del producto",
+    "deleteTitle": "Eliminar producto",
+    "deleteDescription": "¿Está seguro que desea eliminar el producto {name}?"
   },
   "settings": {
     "categories": "Categorías",

@@ -15,7 +15,7 @@ import { useCategories } from "@/app/lib/hooks/useCategories";
 import { useUnits } from "@/app/lib/hooks/useUnits";
 import { useProducts } from "@/app/lib/hooks/useProducts";
 // types
-import { ALERT_SEVERITY } from "@/app/lib/definitions/ui";
+import { ALERT_POSITION, ALERT_SEVERITY } from "@/app/lib/definitions/ui";
 
 interface AppInitializerProps {
   children: React.ReactNode;
@@ -41,7 +41,8 @@ const AppInitializer = ({ children }: AppInitializerProps) => {
       setSession(session.user);
       setMessage(
         t("welcome", { name: session.user.profile.firstName }),
-        ALERT_SEVERITY.SUCCESS
+        ALERT_SEVERITY.SUCCESS,
+        ALERT_POSITION.TOP
       );
     }
     if (status === "unauthenticated") setSession(null);
@@ -49,7 +50,7 @@ const AppInitializer = ({ children }: AppInitializerProps) => {
 
   useEffect(() => {
     if (sessionParam && sessionParam === "expired") {
-      setMessage("Session has expired. Please, sign in!", ALERT_SEVERITY.INFO);
+      setMessage(t("expired"), ALERT_SEVERITY.INFO);
     }
   }, [sessionParam]);
 
