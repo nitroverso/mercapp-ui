@@ -7,7 +7,9 @@
     "coming": "Coming Soon",
     "comingSoon": "We're working hard to launch something amazing. Stay tuned!",
     "loadingApp": "Loading app data ...",
-    "empty": "Ups, nothing to see here!"
+    "empty": "Ups, nothing to see here!",
+    "notFound": "Resource not found!",
+    "expired": "Session has expired. Please, sign in!"
   },
   "auth": {
     "signIn": "Sign In",
@@ -33,12 +35,14 @@
     "required": "This field is required",
     "emailValid": "Invalid email address",
     "passwordLength": "Password must be at least 6 characters long",
+    "edit": "Edit",
     "save": "Save",
     "cancel": "Cancel"
   },
   "navBar": {
     "cupboard": "Cupboard",
     "cupboardAdd": "Add product",
+    "cupboardEdit": "Edit product",
     "home": "Home",
     "notifications": "Notifications",
     "profile": "Profile",

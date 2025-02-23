@@ -4,3 +4,8 @@ export enum ALERT_SEVERITY {
   SUCCESS = "success",
   WARNING = "warning",
 }
+
+export enum ALERT_POSITION {
+  BOTTOM = "bottom",
+  TOP = "top",
+}

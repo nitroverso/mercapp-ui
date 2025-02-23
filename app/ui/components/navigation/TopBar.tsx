@@ -17,6 +17,7 @@ import { useTranslations } from "next-intl";
 import {
   CUPBOARD_ROUTE,
   CUPBOARD_ROUTE_ADD,
+  CUPBOARD_ROUTE_EDIT,
   EVENTS_ROUTE,
   NOTIFICATIONS_ROUTE,
   PROFILE_ROUTE,
@@ -36,6 +37,7 @@ export default function TopBar() {
   const ROUTE_MAPS_TO_MENU_ITEMS_TITLES = {
     [CUPBOARD_ROUTE]: t("cupboard"),
     [CUPBOARD_ROUTE_ADD]: t("cupboardAdd"),
+    [CUPBOARD_ROUTE_EDIT]: t("cupboardEdit"),
     [EVENTS_ROUTE]: t("home"),
     [NOTIFICATIONS_ROUTE]: t("notifications"),
     [PROFILE_ROUTE]: t("profile"),
@@ -47,6 +49,7 @@ export default function TopBar() {
   };
   const ROUTE_WITH_NO_SEARCH = [
     CUPBOARD_ROUTE_ADD,
+    CUPBOARD_ROUTE_EDIT,
     PROFILE_ROUTE,
     SETTINGS_ROUTE,
   ];

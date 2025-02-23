@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 // components
@@ -14,29 +14,46 @@ import SelectInput from "@/app/ui/components/form/inputs/SelectInput";
 import { useCategories } from "@/app/lib/hooks/useCategories";
 import { useUnits } from "@/app/lib/hooks/useUnits";
 // types
-import { IAddProductRequest } from "@/app/lib/definitions/products";
+import { IProductRequest } from "@/app/lib/definitions/products";
 import { CUPBOARD_ROUTE } from "@/app/lib/definitions/routes";
 // utils
 import { getUnitLabel } from "@/app/lib/utils";
 import { useProducts } from "@/app/lib/hooks/useProducts";
 
-// interface ProductDetailsProps {}
+interface ProductDetailsProps {
+  productId?: string;
+}
 
-const ProductDetails = (/* {}: ProductDetailsProps */) => {
+const ProductDetails = ({ productId }: ProductDetailsProps) => {
   const t = useTranslations();
   const router = useRouter();
   const { categories } = useCategories();
   const { units } = useUnits();
-  const { addProduct } = useProducts();
-  const [previewProduct, setPreviewProduct] = useState<IAddProductRequest>();
+  const { products, addProduct, editProduct } = useProducts();
+  const [previewProduct, setPreviewProduct] = useState<IProductRequest>();
+  const [productToEdit, setProductToEdit] = useState<IProductRequest>();
 
-  const handleFormSubmit = async (data: IAddProductRequest) => {
-    const newProduct = await addProduct(data);
-    if (!newProduct) throw new Error("addProduct not processed");
+  useEffect(() => {
+    if (productId) {
+      const productToEdit = products.find(
+        (product) => product.id === productId
+      );
+      if (!productToEdit) router.push(CUPBOARD_ROUTE);
+      setProductToEdit(productToEdit);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productId]);
+
+  const handleFormSubmit = async (data: IProductRequest) => {
+    const newProduct = productId
+      ? await editProduct(data)
+      : await addProduct(data);
+    if (!newProduct) throw new Error("service not processed");
     router.push(CUPBOARD_ROUTE);
   };
 
-  const observeValues = async (data: IAddProductRequest) => {
+  const observeValues = async (data: IProductRequest) => {
     setPreviewProduct(data);
   };
 
@@ -47,8 +64,9 @@ const ProductDetails = (/* {}: ProductDetailsProps */) => {
           {t("ui.info")}
         </Typography>
       </Divider>
-      <Form<IAddProductRequest>
+      <Form<IProductRequest>
         observeValues={observeValues}
+        updatedValues={productToEdit}
         onSubmit={handleFormSubmit}
       >
         <Box className="flex flex-col items-center gap-4">
@@ -85,11 +103,14 @@ const ProductDetails = (/* {}: ProductDetailsProps */) => {
             title={previewProduct?.name || t("products.name")}
           />
           <Box className="flex gap-2">
-            {/* <Button size={ButtonSizes.LARGE} type={ButtonTypes.SUBMIT}>
+            <Button
+              buttonProps={{ onClick: () => router.push(CUPBOARD_ROUTE) }}
+              size={ButtonSizes.LARGE}
+            >
               {t("form.cancel")}
-            </Button> */}
+            </Button>
             <Button size={ButtonSizes.LARGE} type={ButtonTypes.SUBMIT}>
-              {t("form.save")}
+              {t(productId ? "form.edit" : "form.save")}
             </Button>
           </Box>
         </Box>

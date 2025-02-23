@@ -11,7 +11,6 @@ import {
 
 interface FormProps<T extends FieldValues> {
   children: React.ReactNode;
-  defaultValues?: DefaultValues<T>;
   updatedValues?: Partial<DefaultValues<T>>;
   observeValues?: (values: T) => void;
   onSubmit: SubmitHandler<T>;
@@ -32,14 +31,13 @@ export function useFormContext() {
 
 const Form = <T extends FieldValues>({
   children,
-  defaultValues,
   updatedValues,
   observeValues,
   onSubmit,
   onSuccess,
   onFailure,
 }: FormProps<T>) => {
-  const methods = useForm<T>({ defaultValues });
+  const methods = useForm<T>();
   const handleSubmit = methods.handleSubmit(async (values) => {
     try {
       await onSubmit(values);
@@ -53,6 +51,7 @@ const Form = <T extends FieldValues>({
 
   useEffect(() => {
     observeValues?.(formValues);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(formValues)]);
 
   useEffect(() => {
