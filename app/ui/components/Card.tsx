@@ -21,7 +21,7 @@ const Card = ({
   title,
 }: CardProps) => {
   return (
-    <MuiCard className="flex h-full" variant="outlined">
+    <MuiCard className="flex h-full max-w-[720px]" variant="outlined">
       <CardMedia
         alt={`Card image for ${title}`}
         component="img"

@@ -76,10 +76,11 @@ const ProductDetails = (/* {}: ProductDetailsProps */) => {
             subTitle={`${t("products.amount")}: ${
               previewProduct?.quantity || t("products.amount")
             }${
-              previewProduct?.unit_id &&
-              getUnitLabel(
-                units.find((unit) => unit.id === previewProduct.unit_id)!
-              )
+              previewProduct?.unit_id
+                ? getUnitLabel(
+                    units.find((unit) => unit.id === previewProduct.unit_id)!
+                  )
+                : ""
             }`}
             title={previewProduct?.name || t("products.name")}
           />
