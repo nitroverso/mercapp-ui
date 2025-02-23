@@ -13,6 +13,7 @@ interface FormProps<T extends FieldValues> {
   children: React.ReactNode;
   defaultValues?: DefaultValues<T>;
   updatedValues?: Partial<DefaultValues<T>>;
+  observeValues?: (values: T) => void;
   onSubmit: SubmitHandler<T>;
   onSuccess?: () => void;
   onFailure?: (error: unknown) => void;
@@ -33,6 +34,7 @@ const Form = <T extends FieldValues>({
   children,
   defaultValues,
   updatedValues,
+  observeValues,
   onSubmit,
   onSuccess,
   onFailure,
@@ -47,6 +49,11 @@ const Form = <T extends FieldValues>({
       onFailure?.(error);
     }
   });
+  const formValues = methods.watch();
+
+  useEffect(() => {
+    observeValues?.(formValues);
+  }, [JSON.stringify(formValues)]);
 
   useEffect(() => {
     if (updatedValues) {

@@ -32,10 +32,13 @@
   "form": {
     "required": "Este campo es requerido",
     "emailValid": "Correo inválido",
-    "passwordLength": "La contraseña debe ser al menos de 6 letras"
+    "passwordLength": "La contraseña debe ser al menos de 6 letras",
+    "save": "Guardar",
+    "cancel": "Cancelar"
   },
   "navBar": {
     "cupboard": "Alacena",
+    "cupboardAdd": "Añadir producto",
     "home": "Inicio",
     "notifications": "Notificaciones",
     "profile": "Perfil",
@@ -44,7 +47,10 @@
     "signingOut": "Cerrando sesión ..."
   },
   "products": {
-    "amount": "Cantidad"
+    "amount": "Cantidad",
+    "name": "Nombre del producto",
+    "unit": "Unidad de medida",
+    "category": "Categoría del producto"
   },
   "settings": {
     "categories": "Categorías",

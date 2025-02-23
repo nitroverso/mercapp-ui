@@ -11,7 +11,10 @@ import {
   updateProductService,
 } from "@/app/lib/services/serviceProducts";
 // types
-import { IGroupedProducts } from "@/app/lib/definitions/products";
+import {
+  IAddProductRequest,
+  IGroupedProducts,
+} from "@/app/lib/definitions/products";
 
 export function useProducts() {
   const { categories } = useCategories();
@@ -35,12 +38,13 @@ export function useProducts() {
     }
   };
 
-  const addProduct = async (name: string) => {
+  const addProduct = async (body: IAddProductRequest) => {
     try {
       setLoadingProducts(true);
-      const product = await addProductService({ name });
-      setProducts([...products, ...[product]]);
+      const product = await addProductService(body);
+      setProducts([...products, product]);
       setLoadingProducts(false);
+      return product;
     } catch (error) {
       setLoadingProducts(false);
       processError(error);

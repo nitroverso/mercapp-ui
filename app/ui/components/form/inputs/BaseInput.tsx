@@ -5,7 +5,7 @@ import {
   RegisterOptions,
 } from "react-hook-form";
 // components
-import { TextField } from "@mui/material";
+import { MenuItem, TextField } from "@mui/material";
 // i18n
 import { useTranslations } from "next-intl";
 
@@ -19,6 +19,7 @@ interface InputProps {
   isRequired?: boolean;
   label: string;
   name: string;
+  options?: { label: string; value: string }[];
   rules?: RegisterOptions;
   size?: InputSizes;
   type?: string;
@@ -29,6 +30,7 @@ const Input: React.FC<InputProps> = ({
   isRequired,
   label,
   name,
+  options,
   rules = {},
   size,
   type = "text",
@@ -47,9 +49,16 @@ const Input: React.FC<InputProps> = ({
           error={!!error}
           helperText={(error as FieldError)?.message || ""}
           label={label}
+          select={!!options}
           size={size ?? InputSizes.MEDIUM}
           type={type}
-        />
+        >
+          {options?.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
       )}
       rules={{
         required: isRequired ? t("required") : "",

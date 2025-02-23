@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 // components
 import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import Search from "@/app/ui/components/form/inputs/SearchInput";
@@ -16,6 +16,7 @@ import { useTranslations } from "next-intl";
 // routes
 import {
   CUPBOARD_ROUTE,
+  CUPBOARD_ROUTE_ADD,
   EVENTS_ROUTE,
   NOTIFICATIONS_ROUTE,
   PROFILE_ROUTE,
@@ -25,6 +26,7 @@ import {
 export default function TopBar() {
   const t = useTranslations("navBar");
   const pathname = usePathname();
+  const router = useRouter();
   const {
     uiActions: {
       uiNavbarActions: { toggleNavbar },
@@ -33,12 +35,21 @@ export default function TopBar() {
 
   const ROUTE_MAPS_TO_MENU_ITEMS_TITLES = {
     [CUPBOARD_ROUTE]: t("cupboard"),
+    [CUPBOARD_ROUTE_ADD]: t("cupboardAdd"),
     [EVENTS_ROUTE]: t("home"),
     [NOTIFICATIONS_ROUTE]: t("notifications"),
     [PROFILE_ROUTE]: t("profile"),
     [SETTINGS_ROUTE]: t("settings"),
   };
-  const ROUTE_WITH_NO_SEARCH = [PROFILE_ROUTE, SETTINGS_ROUTE];
+  const ADD_ACTION_REDIRECT_MAP = {
+    [CUPBOARD_ROUTE]: CUPBOARD_ROUTE_ADD,
+    [EVENTS_ROUTE]: EVENTS_ROUTE,
+  };
+  const ROUTE_WITH_NO_SEARCH = [
+    CUPBOARD_ROUTE_ADD,
+    PROFILE_ROUTE,
+    SETTINGS_ROUTE,
+  ];
   const ROUTE_WITH_ADD = [CUPBOARD_ROUTE, EVENTS_ROUTE];
   const currentRoute = pathname as keyof typeof ROUTE_MAPS_TO_MENU_ITEMS_TITLES;
   const showSearch = !ROUTE_WITH_NO_SEARCH.includes(currentRoute);
@@ -85,7 +96,16 @@ export default function TopBar() {
             )}
             {showAddAction && (
               <Button
-                iconButtonProps={{ color: "primary", size: ButtonSizes.LARGE }}
+                iconButtonProps={{
+                  color: "primary",
+                  onClick: () =>
+                    router.push(
+                      ADD_ACTION_REDIRECT_MAP[
+                        currentRoute as keyof typeof ADD_ACTION_REDIRECT_MAP
+                      ]
+                    ),
+                  size: ButtonSizes.LARGE,
+                }}
                 scope={ButtonScope.ICON}
               >
                 <AddCircleIcon />
