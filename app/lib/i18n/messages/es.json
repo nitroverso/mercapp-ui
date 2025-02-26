@@ -9,7 +9,9 @@
     "loadingApp": "Cargando datos de aplicación ...",
     "empty": "Ups, no hay nada por aquí!",
     "notFound": "Recurso no encontrado!",
-    "expired": "La sesión ha expirado. ¡Por favor, inicie sesión!"
+    "expired": "La sesión ha expirado. ¡Por favor, inicie sesión!",
+    "deleteItemTitle": "Eliminar item",
+    "deleteItemDescription": "¿Está seguro que desea eliminar el item?"
   },
   "auth": {
     "signIn": "Inicio de sesión",
