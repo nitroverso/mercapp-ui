@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 // components
 import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import Search from "@/app/ui/components/form/inputs/SearchInput";
@@ -8,6 +8,7 @@ import Button, { ButtonScope, ButtonSizes } from "@/app/ui/components/Button";
 import Form from "@/app/ui/components/form/Form";
 // hooks
 import { useStore } from "@/app/lib/hooks/useStore";
+import { useDebouncedCallback } from "use-debounce";
 // icons
 import MenuIcon from "@mui/icons-material/Menu";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -23,9 +24,12 @@ import {
   PROFILE_ROUTE,
   SETTINGS_ROUTE,
 } from "@/app/lib/definitions/routes";
+// types
+import { ITopBarSearch } from "@/app/lib/definitions/ui";
 
 export default function TopBar() {
   const t = useTranslations("navBar");
+  const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
   const {
@@ -57,6 +61,17 @@ export default function TopBar() {
   const currentRoute = pathname as keyof typeof ROUTE_MAPS_TO_MENU_ITEMS_TITLES;
   const showSearch = !ROUTE_WITH_NO_SEARCH.includes(currentRoute);
   const showAddAction = ROUTE_WITH_ADD.includes(currentRoute);
+
+  const handleSearch = useDebouncedCallback((data: ITopBarSearch) => {
+    const params = new URLSearchParams(searchParams);
+    const query = data.searchQuery;
+    if (query) {
+      params.set("searchQuery", query);
+    } else {
+      params.delete("searchQuery");
+    }
+    router.replace(`${pathname}?${params.toString()}`);
+  }, 0);
 
   return (
     <>
@@ -93,7 +108,7 @@ export default function TopBar() {
 
           <Box className="w-fit flex items-center justify-between gap-1">
             {showSearch && (
-              <Form onSubmit={() => ""}>
+              <Form<ITopBarSearch> preventReset onSubmit={handleSearch}>
                 <Search />
               </Form>
             )}

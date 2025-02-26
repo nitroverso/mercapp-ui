@@ -12,6 +12,7 @@ import {
 interface FormProps<T extends FieldValues> {
   children: React.ReactNode;
   updatedValues?: Partial<DefaultValues<T>>;
+  preventReset?: boolean;
   observeValues?: (values: T) => void;
   onSubmit: SubmitHandler<T>;
   onSuccess?: () => void;
@@ -32,6 +33,7 @@ export function useFormContext() {
 const Form = <T extends FieldValues>({
   children,
   updatedValues,
+  preventReset,
   observeValues,
   onSubmit,
   onSuccess,
@@ -41,7 +43,7 @@ const Form = <T extends FieldValues>({
   const handleSubmit = methods.handleSubmit(async (values) => {
     try {
       await onSubmit(values);
-      methods.reset();
+      if (!preventReset) methods.reset();
       onSuccess?.();
     } catch (error) {
       onFailure?.(error);
