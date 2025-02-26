@@ -1,12 +1,12 @@
 // components
 import Button, { ButtonScope, ButtonTypes } from "@/app/ui/components/Button";
 import { InputSizes } from "@/app/ui/components/form/inputs/BaseInput";
-import { Divider, Paper } from "@mui/material";
+import { Paper } from "@mui/material";
 // i18n
 import { useTranslations } from "next-intl";
 // icons
 import SearchIcon from "@mui/icons-material/Search";
-import TuneIcon from "@mui/icons-material/Tune";
+// import TuneIcon from "@mui/icons-material/Tune";
 import TextInput from "@/app/ui/components/form/inputs/TextInput";
 
 export default function Search() {
@@ -17,22 +17,19 @@ export default function Search() {
       // eslint-disable-next-line sort-keys
       sx={{ p: "2px 4px", display: "flex", alignItems: "center" }}
     >
-      <TextInput // Change this by form
-        isRequired
+      <TextInput
         label={t("search")}
-        name="name"
+        name="searchQuery"
         size={InputSizes.SMALL}
       />
       <Button
-        iconButtonProps={{
-          sx: { p: "10px" },
-          type: ButtonTypes.BUTTON,
-        }}
+        iconButtonProps={{ sx: { p: "10px" } }}
         scope={ButtonScope.ICON}
+        type={ButtonTypes.SUBMIT}
       >
         <SearchIcon />
       </Button>
-      <Divider orientation="vertical" sx={{ height: 28, m: 0.5 }} />
+      {/* <Divider orientation="vertical" sx={{ height: 28, m: 0.5 }} />
       <Button
         iconButtonProps={{
           color: "primary",
@@ -41,7 +38,7 @@ export default function Search() {
         scope={ButtonScope.ICON}
       >
         <TuneIcon />
-      </Button>
+      </Button> */}
     </Paper>
   );
 }

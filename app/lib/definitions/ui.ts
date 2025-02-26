@@ -9,3 +9,7 @@ export enum ALERT_POSITION {
   BOTTOM = "bottom",
   TOP = "top",
 }
+
+export type ITopBarSearch = {
+  searchQuery?: string;
+};

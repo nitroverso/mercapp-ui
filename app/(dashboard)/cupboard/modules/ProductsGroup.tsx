@@ -70,7 +70,10 @@ const ProductsGroup = ({ categoryName, products }: ProductsGroupProps) => {
       <AlertDialog
         description={t("deleteDescription", { name: productToDelete?.name })}
         handleClose={() => setProductToDelete(undefined)}
-        handleConfirm={() => deleteProduct(productToDelete!.id)}
+        handleConfirm={() => {
+          deleteProduct(productToDelete!.id);
+          setProductToDelete(undefined);
+        }}
         open={!!productToDelete}
         title={t("deleteTitle")}
       />

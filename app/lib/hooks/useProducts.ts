@@ -15,8 +15,9 @@ import {
   IProductRequest,
   IGroupedProducts,
 } from "@/app/lib/definitions/products";
+import { ITopBarSearch } from "@/app/lib/definitions/ui";
 
-export function useProducts() {
+export function useProducts({ searchQuery }: ITopBarSearch = {}) {
   const { categories } = useCategories();
   const { units } = useUnits();
   const {
@@ -88,7 +89,13 @@ export function useProducts() {
 
     products.forEach((product) => {
       const category = categoriesMap[product.category_id];
-      if (category) {
+      if (
+        category &&
+        (!searchQuery ||
+          product.name
+            .toLocaleLowerCase()
+            .includes(searchQuery.toLocaleLowerCase()))
+      ) {
         category.products.push({
           ...product,
           unit: units.find((unit) => unit.id === product.unit_id)!,
