@@ -2,9 +2,8 @@
 
 // types
 import {
-  IAddProductRequest,
+  IProductRequest,
   IDeleteProductRequest,
-  IEditProductRequest,
   IProduct,
 } from "@/app/lib/definitions/products";
 import { API_PRODUCTS_ROUTE } from "@/app/lib/definitions/routes";
@@ -26,7 +25,7 @@ export async function getAllProductsService(): Promise<IProduct[]> {
 }
 
 export async function addProductService(
-  reqBody: IAddProductRequest
+  reqBody: IProductRequest
 ): Promise<IProduct> {
   const { data } = await commonFetch<DefaultResponse<IProduct>>({
     options: { method: FETCH_METHODS.POST, reqBody },
@@ -37,12 +36,12 @@ export async function addProductService(
 }
 
 export async function updateProductService(
-  reqBody: IEditProductRequest
+  reqBody: IProductRequest
 ): Promise<IProduct> {
   const { data } = await commonFetch<DefaultResponse<IProduct>>({
     options: { method: FETCH_METHODS.PUT, reqBody: { name: reqBody.name } },
     source: { fileName, method: "updateProductService" },
-    url: `${API_PRODUCTS_ROUTE}/${reqBody.productId}`,
+    url: `${API_PRODUCTS_ROUTE}/${reqBody.id}`,
   });
   return data;
 }

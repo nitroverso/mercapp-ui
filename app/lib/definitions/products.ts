@@ -16,11 +16,7 @@ export type IGroupedProducts = ICategory & {
 };
 
 //** ******* Products Requests ******* */
-export type IAddProductRequest = Partial<IProduct>;
-
-export type IEditProductRequest = {
-  productId: string;
-} & Partial<IProduct>;
+export type IProductRequest = Partial<IProduct>;
 
 export type IDeleteProductRequest = {
   productId: string;

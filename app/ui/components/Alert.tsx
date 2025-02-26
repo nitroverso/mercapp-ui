@@ -24,7 +24,7 @@ const HIDE_DURATION_MAP = {
 const SnackbarAlert = () => {
   const t = useTranslations("ui");
   const {
-    uiAlerts: { message, severity },
+    uiAlerts: { message, severity, position },
     uiActions: {
       uiAlertsActions: { clearMessage },
     },
@@ -47,7 +47,7 @@ const SnackbarAlert = () => {
 
   return (
     <Snackbar
-      anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
+      anchorOrigin={{ horizontal: "center", vertical: position }}
       autoHideDuration={HIDE_DURATION_MAP[severity]}
       open={showAlert}
       onClose={handleClose}

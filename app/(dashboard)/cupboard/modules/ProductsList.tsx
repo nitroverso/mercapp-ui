@@ -4,19 +4,24 @@ import { useEffect } from "react";
 // components
 import ProductsGroup from "@/app/(dashboard)/cupboard/modules/ProductsGroup";
 import { LinearProgress } from "@mui/material";
+import EmptyState from "@/app/ui/components/Empty";
 // hooks
 import { useProducts } from "@/app/lib/hooks/useProducts";
 import { useCategories } from "@/app/lib/hooks/useCategories";
 import { useUnits } from "@/app/lib/hooks/useUnits";
 
-const ProductsList = () => {
+interface ProductListProps {
+  searchQuery?: string;
+}
+
+const ProductsList = ({ searchQuery }: ProductListProps) => {
   const {
     loadingProducts,
     loadProducts,
     products,
     groupedProducts,
     getGroupedProducts,
-  } = useProducts();
+  } = useProducts({ searchQuery });
   const { categories, loadingCategories } = useCategories();
   const { units, loadingUnits } = useUnits();
 
@@ -34,23 +39,18 @@ const ProductsList = () => {
       loadProductsList();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [products.length, categories.length, units.length]);
+  }, [products.length, categories.length, units.length, searchQuery]);
 
   const isLoading = loadingProducts || loadingCategories || loadingUnits;
 
-  return (
-    <>
-      {isLoading ? (
-        <LinearProgress />
-      ) : (
-        groupedProducts.map(({ id, name, products }) => {
-          return (
-            <ProductsGroup key={id} categoryName={name} products={products} />
-          );
-        })
-      )}
-    </>
-  );
+  const renderGroupedProducts = () => {
+    if (!groupedProducts.length) return <EmptyState />;
+    return groupedProducts.map(({ id, name, products }) => {
+      return <ProductsGroup key={id} categoryName={name} products={products} />;
+    });
+  };
+
+  return <>{isLoading ? <LinearProgress /> : renderGroupedProducts()}</>;
 };
 
 export default ProductsList;

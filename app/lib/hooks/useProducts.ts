@@ -11,9 +11,13 @@ import {
   updateProductService,
 } from "@/app/lib/services/serviceProducts";
 // types
-import { IGroupedProducts } from "@/app/lib/definitions/products";
+import {
+  IProductRequest,
+  IGroupedProducts,
+} from "@/app/lib/definitions/products";
+import { ITopBarSearch } from "@/app/lib/definitions/ui";
 
-export function useProducts() {
+export function useProducts({ searchQuery }: ITopBarSearch = {}) {
   const { categories } = useCategories();
   const { units } = useUnits();
   const {
@@ -35,26 +39,28 @@ export function useProducts() {
     }
   };
 
-  const addProduct = async (name: string) => {
+  const addProduct = async (body: IProductRequest) => {
     try {
       setLoadingProducts(true);
-      const product = await addProductService({ name });
-      setProducts([...products, ...[product]]);
+      const product = await addProductService(body);
+      setProducts([...products, product]);
       setLoadingProducts(false);
+      return product;
     } catch (error) {
       setLoadingProducts(false);
       processError(error);
     }
   };
 
-  const editProduct = async (productId: string, name: string) => {
+  const editProduct = async (body: IProductRequest) => {
     try {
       setLoadingProducts(true);
-      const product = await updateProductService({ name, productId });
+      const product = await updateProductService(body);
       setProducts(
-        products.map((item) => (item.id === productId ? product : item))
+        products.map((item) => (item.id === body.id ? product : item))
       );
       setLoadingProducts(false);
+      return product;
     } catch (error) {
       setLoadingProducts(false);
       processError(error);
@@ -83,7 +89,13 @@ export function useProducts() {
 
     products.forEach((product) => {
       const category = categoriesMap[product.category_id];
-      if (category) {
+      if (
+        category &&
+        (!searchQuery ||
+          product.name
+            .toLocaleLowerCase()
+            .includes(searchQuery.toLocaleLowerCase()))
+      ) {
         category.products.push({
           ...product,
           unit: units.find((unit) => unit.id === product.unit_id)!,

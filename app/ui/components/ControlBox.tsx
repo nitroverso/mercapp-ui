@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import clsx from "clsx";
 // components
 import {
@@ -21,6 +22,7 @@ import Button, {
 import Form from "@/app/ui/components/form/Form";
 import TextInput from "@/app/ui/components/form/inputs/TextInput";
 import EmptyState from "@/app/ui/components/Empty";
+import AlertDialog from "@/app/ui/components/AlertDialog";
 // icons
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
@@ -57,7 +59,9 @@ export default function ControlBox({
   boxItemManager: { onAdd, onEdit, addLabel, editLabel },
   boxItemsList: { description, items, onDelete },
 }: ControlBoxProps) {
+  const t = useTranslations();
   const [selectedItem, setSelectedItem] = useState<ControlBoxItem | null>(null);
+  const [itemToDelete, setItemToDelete] = useState<ControlBoxItem>();
 
   const renderHeader = () => {
     return (
@@ -141,7 +145,7 @@ export default function ControlBox({
             <EditIcon />
           </Button>
           <Button
-            iconButtonProps={{ onClick: () => onDelete(item.id) }}
+            iconButtonProps={{ onClick: () => setItemToDelete(item) }}
             scope={ButtonScope.ICON}
           >
             {/* Control box item list action icon */}
@@ -177,8 +181,8 @@ export default function ControlBox({
   };
 
   return (
-    <Box className="flex">
-      <Paper elevation={0} sx={{ minWidth: 256, width: 400 }}>
+    <Box className="flex order-solid border-2 border-gray-200 w-fit">
+      <Paper className="b" elevation={0} sx={{ minWidth: 256, width: 400 }}>
         <List component="nav">
           {renderHeader()}
           <Divider />
@@ -198,6 +202,16 @@ export default function ControlBox({
           {renderList()}
         </List>
       </Paper>
+      <AlertDialog
+        description={t("ui.deleteItemDescription")}
+        handleClose={() => setItemToDelete(undefined)}
+        handleConfirm={() => {
+          onDelete(itemToDelete!.id);
+          setItemToDelete(undefined);
+        }}
+        open={!!itemToDelete}
+        title={t("ui.deleteItemTitle")}
+      />
     </Box>
   );
 }
