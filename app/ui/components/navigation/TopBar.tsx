@@ -20,6 +20,7 @@ import {
   CUPBOARD_ROUTE_ADD,
   CUPBOARD_ROUTE_EDIT,
   EVENTS_ROUTE,
+  EVENTS_ROUTE_ADD,
   NOTIFICATIONS_ROUTE,
   PROFILE_ROUTE,
   SETTINGS_ROUTE,
@@ -43,15 +44,17 @@ export default function TopBar() {
     [CUPBOARD_ROUTE_ADD]: t("cupboardAdd"),
     [CUPBOARD_ROUTE_EDIT]: t("cupboardEdit"),
     [EVENTS_ROUTE]: t("home"),
+    [EVENTS_ROUTE_ADD]: t("eventAdd"),
     [NOTIFICATIONS_ROUTE]: t("notifications"),
     [PROFILE_ROUTE]: t("profile"),
     [SETTINGS_ROUTE]: t("settings"),
   };
   const ADD_ACTION_REDIRECT_MAP = {
     [CUPBOARD_ROUTE]: CUPBOARD_ROUTE_ADD,
-    [EVENTS_ROUTE]: EVENTS_ROUTE,
+    [EVENTS_ROUTE]: EVENTS_ROUTE_ADD,
   };
   const ROUTE_WITH_NO_SEARCH = [
+    EVENTS_ROUTE_ADD,
     CUPBOARD_ROUTE_ADD,
     CUPBOARD_ROUTE_EDIT,
     PROFILE_ROUTE,

@@ -44,13 +44,13 @@ export default function Button({
   className,
   iconButtonProps,
   scope = ButtonScope.DEFAULT,
-  size,
-  type,
-  variant,
+  size = ButtonSizes.MEDIUM,
+  type = ButtonTypes.BUTTON,
+  variant = ButtonVariants.SOLID,
 }: ButtonProps) {
   const renderIconButton = () => {
     return (
-      <IconButton {...iconButtonProps} type={type ?? ButtonTypes.BUTTON}>
+      <IconButton {...iconButtonProps} type={type}>
         {children}
       </IconButton>
     );
@@ -60,14 +60,14 @@ export default function Button({
     return (
       <MuiButton
         {...buttonProps}
-        size={size ?? ButtonSizes.MEDIUM}
+        size={size}
         sx={{
           borderRadius: 5,
           px: 5,
           width: "fit-content",
         }}
-        type={type ?? ButtonTypes.BUTTON}
-        variant={variant ?? ButtonVariants.SOLID}
+        type={type}
+        variant={variant}
       >
         {children}
       </MuiButton>

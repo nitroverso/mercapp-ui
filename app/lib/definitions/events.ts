@@ -7,6 +7,8 @@ export type IEvent = {
   productIds: string[];
 };
 
+export const DATE_FORMAT = "YYYY-MM-DD";
+
 //** ******* Products Requests ******* */
 export type IEventRequest = Partial<IEvent>;
 

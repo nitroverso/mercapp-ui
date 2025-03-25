@@ -11,7 +11,8 @@
     "notFound": "Recurso no encontrado!",
     "expired": "La sesión ha expirado. ¡Por favor, inicie sesión!",
     "deleteItemTitle": "Eliminar item",
-    "deleteItemDescription": "¿Está seguro que desea eliminar el item?"
+    "deleteItemDescription": "¿Está seguro que desea eliminar el item?",
+    "selected": "seleccionado(s)"
   },
   "auth": {
     "signIn": "Inicio de sesión",
@@ -47,9 +48,10 @@
     "cupboardAdd": "Añadir producto",
     "cupboardEdit": "Editar producto",
     "home": "Inicio",
+    "eventAdd": "Añadir evento",
     "notifications": "Notificaciones",
     "profile": "Perfil",
-    "settings": "Configruación",
+    "settings": "Configuración",
     "logout": "Salir",
     "signingOut": "Cerrando sesión ..."
   },
@@ -60,6 +62,14 @@
     "category": "Categoría del producto",
     "deleteTitle": "Eliminar producto",
     "deleteDescription": "¿Está seguro que desea eliminar el producto {name}?"
+  },
+  "events": {
+    "name": "Nombre del evento",
+    "date": "Fecha del evento",
+    "deleteTitle": "Eliminar evento",
+    "deleteDescription": "¿Está seguro que desea eliminar el evento {name}?",
+    "choices": "Fuera de la lista",
+    "chosen": "Lista de mercado"
   },
   "settings": {
     "categories": "Categorías",
