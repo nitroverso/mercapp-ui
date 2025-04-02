@@ -8,6 +8,7 @@ export const SIGNUP_ROUTE = "/signup";
 
 //** Dashboard Routes */
 export const EVENTS_ROUTE = "/events";
+export const EVENTS_ROUTE_ADD = "/events/add";
 export const CUPBOARD_ROUTE = "/cupboard";
 export const CUPBOARD_ROUTE_ADD = "/cupboard/add";
 export const CUPBOARD_ROUTE_EDIT = "/cupboard/edit";
@@ -22,6 +23,7 @@ export const API_REGISTER_ROUTE = "/auth/register";
 export const API_CATEGORIES_ROUTE = "/categories";
 export const API_PRODUCTS_ROUTE = "/products";
 export const API_UNITS_ROUTE = "/units";
+export const API_EVENTS_ROUTE = "/events";
 
 //** API Internal routes */
 
